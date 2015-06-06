@@ -21,9 +21,9 @@ public class TesteDominio {
 				new RegraMultiplicaPorTaxa(TipoLancamento.CONSUMO_BASICO),
 				LocalDate.now());
 		padrao.addRegraLancamento(TipoEvento.CHAMADA, new RegraFormulaSimples(
-				0.5, 10.0, TipoLancamento.SERVICO), LocalDate.now());
+				TipoLancamento.SERVICO, 0.5, 10.0), LocalDate.now());
 		padrao.addRegraLancamento(TipoEvento.IMPOSTO, new RegraFormulaSimples(
-				0.055, 0, TipoLancamento.IMPOSTO), LocalDate.now());
+				TipoLancamento.IMPOSTO, 0.055, 0), LocalDate.now());
 		cam.setAcordoServico(padrao);
 
 		return cam;
@@ -37,7 +37,7 @@ public class TesteDominio {
 		baixaRenda.addRegraLancamento(TipoEvento.CONSUMO, new RegraBaixaRenda(
 				TipoLancamento.CONSUMO_BASICO, 5, 50), LocalDate.now());
 		baixaRenda.addRegraLancamento(TipoEvento.CHAMADA,
-				new RegraFormulaSimples(0, 10.0, TipoLancamento.SERVICO),
+				new RegraFormulaSimples(TipoLancamento.SERVICO, 0, 10.0),
 				LocalDate.now());
 		zé.setAcordoServico(baixaRenda);
 

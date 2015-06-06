@@ -7,8 +7,8 @@ public class RegraFormulaSimples extends RegraLancamento {
 	private double multiplicador;
 	private double valorFixo;
 
-	public RegraFormulaSimples(double multiplicador, double valorFixo,
-			TipoLancamento tipo) {
+	public RegraFormulaSimples(TipoLancamento tipo, double multiplicador,
+			double valorFixo) {
 		super(tipo);
 		this.multiplicador = multiplicador;
 		this.valorFixo = valorFixo;
