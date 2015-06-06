@@ -19,7 +19,7 @@ public class Conta {
 		return moeda;
 	}
 
-	public void addLancamento(double valor, LocalDate data) {
+	public void addLancamento(LocalDate data, double valor) {
 		// assert(moeda.equals(valor.Moeda()));
 		lancamentos.add(new Lancamento(TipoLancamento.TRANSACAO, data, valor));
 	}
@@ -72,11 +72,11 @@ public class Conta {
 		return resultado;
 	}
 
-	public void saque(double valor, Conta alvo, LocalDate data) {
-		new Transacao(this, alvo, data, valor);
+	public void saque(LocalDate data, Conta para, double valor) {
+		new Transacao(this, para, data, valor);
 	}
 
-	public void deposito(double valor, Conta de, LocalDate data) {
+	public void deposito(LocalDate data, Conta de, double valor) {
 		new Transacao(de, this, data, valor);
 	}
 }
