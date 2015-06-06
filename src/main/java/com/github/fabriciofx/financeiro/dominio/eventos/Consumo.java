@@ -7,8 +7,8 @@ import com.github.fabriciofx.financeiro.dominio.Cliente;
 public class Consumo extends Evento {
 	private double valor;
 
-	public Consumo(double valor, LocalDate quandoOcorreu,
-			LocalDate quandoObservado, Cliente cliente) {
+	public Consumo(LocalDate quandoOcorreu, LocalDate quandoObservado,
+			Cliente cliente, double valor) {
 		super(TipoEvento.CONSUMO, quandoOcorreu, quandoObservado, cliente);
 		this.valor = valor;
 	}

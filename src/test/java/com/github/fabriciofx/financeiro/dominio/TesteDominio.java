@@ -47,7 +47,7 @@ public class TesteDominio {
 	public static void testConsumo() {
 		Cliente cam = configuraClienteNormal();
 
-		Consumo evento = new Consumo(50, LocalDate.now(), LocalDate.now(), cam);
+		Consumo evento = new Consumo(LocalDate.now(), LocalDate.now(), cam, 50);
 		evento.processa();
 
 		Lancamento lancamentoResultante = evento.getLancamento(cam, 0);
@@ -56,7 +56,7 @@ public class TesteDominio {
 
 	public void testConsumo2() {
 		Cliente cam = configuraClienteNormal();
-		Consumo evento = new Consumo(50, LocalDate.now(), LocalDate.now(), cam);
+		Consumo evento = new Consumo(LocalDate.now(), LocalDate.now(), cam, 50);
 		evento.processa();
 		Lancamento lancamentoConsumo = evento.getLancamento(cam, 0);
 		Lancamento lancamentoImposto = evento.getLancamento(cam, 1);
@@ -73,10 +73,10 @@ public class TesteDominio {
 	public static void testConsumoBaixaRenda() {
 		Cliente zé = configuraClienteBaixaRenda();
 
-		Consumo evento = new Consumo(50, LocalDate.now(), LocalDate.now(), zé);
+		Consumo evento = new Consumo(LocalDate.now(), LocalDate.now(), zé, 50);
 		evento.processa();
 
-		Consumo evento2 = new Consumo(51, LocalDate.now(), LocalDate.now(), zé);
+		Consumo evento2 = new Consumo(LocalDate.now(), LocalDate.now(), zé, 51);
 		evento2.processa();
 
 		Lancamento lancamentoResultante1 = zé.getLancamentos().get(0);
@@ -102,8 +102,8 @@ public class TesteDominio {
 		Conta contasProteladas = new Conta(Moeda.BRA);
 		Conta contasAReceber = new Conta(Moeda.BRA);
 
-		receitas.saque(500, contasAReceber, LocalDate.now());
-		receitas.saque(200, contasProteladas, LocalDate.now());
+		receitas.saque(LocalDate.now(), contasAReceber, 500);
+		receitas.saque(LocalDate.now(), contasProteladas, 200);
 
 		// assertEquals(500, contasAReceber.saldo());
 		// assertEquals(200, contasProteladas.saldo());
