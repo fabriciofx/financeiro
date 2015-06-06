@@ -89,8 +89,8 @@ public class TesteDominio {
 	public static void testServicoDepoisDaMudanca() {
 		Cliente cam = configuraClienteNormal();
 
-		Evento evento = new EventoMonetario(40.0, TipoEvento.CHAMADA,
-				LocalDate.now(), LocalDate.now(), cam);
+		Evento evento = new EventoMonetario(TipoEvento.CHAMADA,
+				LocalDate.now(), LocalDate.now(), cam, 40.0);
 		evento.processa();
 
 		Lancamento lancamentoResultante = cam.getLancamentos().get(0);
