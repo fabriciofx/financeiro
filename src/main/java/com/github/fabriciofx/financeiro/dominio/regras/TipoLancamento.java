@@ -1,4 +1,4 @@
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.dominio.regras;
 
 public enum TipoLancamento {
 	CONSUMO_BASICO("Consumo Básico"), SERVICO("Taxa de Serviço"), IMPOSTO(

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
+import com.github.fabriciofx.financeiro.dominio.regras.RegraLancamento;
 
 public class AcordoServico {
 	private double taxa;

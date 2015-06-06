@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.github.fabriciofx.financeiro.dominio.Cliente;
 import com.github.fabriciofx.financeiro.dominio.Lancamento;
-import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
+import com.github.fabriciofx.financeiro.dominio.regras.RegraLancamento;
 
 public class Evento {
 	private TipoEvento tipo;

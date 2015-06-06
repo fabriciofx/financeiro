@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
+
 public class Conta {
 	private List<Lancamento> lancamentos = new ArrayList<>();
 	private Moeda moeda;

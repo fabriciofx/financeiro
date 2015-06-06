@@ -9,6 +9,7 @@ import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraBaixaRenda;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraFormulaSimples;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraMultiplicaPorTaxa;
+import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
 
 public class TesteDominio {
 	public static Cliente configuraClienteNormal() {

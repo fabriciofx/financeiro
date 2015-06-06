@@ -2,6 +2,8 @@ package com.github.fabriciofx.financeiro.dominio;
 
 import java.time.LocalDate;
 
+import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
+
 public class Lancamento {
 	private LocalDate data;
 	private TipoLancamento tipo;
