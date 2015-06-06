@@ -9,7 +9,11 @@ import com.github.fabriciofx.financeiro.dominio.regras.RegraLancamento;
 
 public class AcordoServico {
 	private double taxa;
-	private Map<TipoEvento, Map<LocalDate, RegraLancamento>> regrasLancamento = new HashMap<TipoEvento, Map<LocalDate, RegraLancamento>>();
+	private Map<TipoEvento, Map<LocalDate, RegraLancamento>> regrasLancamento;
+
+	public AcordoServico() {
+		regrasLancamento = new HashMap<TipoEvento, Map<LocalDate, RegraLancamento>>();
+	}
 
 	public void addRegraLancamento(TipoEvento tipoEvento,
 			RegraLancamento regra, LocalDate vigencia) {
