@@ -1,55 +1,57 @@
 package com.github.fabriciofx.financeiro.dominio;
 
-import java.util.Date;
-
-import com.github.fabriciofx.financeiro.util.DataUtil;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Periodo {
-	private Date inicio;
-	private Date termino;
+	private LocalDate inicio;
+	private LocalDate termino;
 
 	public Periodo() {
-		this.inicio = DataUtil.hoje();
-		this.termino = DataUtil.hoje();
+		this.inicio = LocalDate.now();
+		this.termino = LocalDate.now();
 	}
 
-	public Periodo(final Date inicio, final Date termino) {
+	public Periodo(final LocalDate inicio, final LocalDate termino) {
 		this.inicio = inicio;
 		this.termino = termino;
 	}
 
-	public Date getInicio() {
+	public LocalDate getInicio() {
 		return inicio;
 	}
 
-	public Date getTermino() {
+	public LocalDate getTermino() {
 		return termino;
 	}
 
 	public static Periodo de(final String dataInicio) {
-		return new Periodo(DataUtil.convertaData(dataInicio),
-				DataUtil.convertaData(dataInicio));
+		LocalDate data = LocalDate.parse(dataInicio,
+				DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		return new Periodo(data, data);
 	}
 
 	public Periodo ate(final String dataTermino) {
-		this.termino = DataUtil.convertaData(dataTermino);
+		this.termino = LocalDate.parse(dataTermino,
+				DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 		return this;
 	}
 
 	public long emHoras() {
-		long tempo = termino.getTime() - inicio.getTime();
-
-		return tempo / (1000L * 60L * 60L);
+		return ChronoUnit.HOURS.between(inicio, termino);
 	}
 
 	@Override
 	public String toString() {
-		return DataUtil.convertaData(inicio) + " a "
-				+ DataUtil.convertaData(termino);
+		final DateTimeFormatter formato = DateTimeFormatter
+				.ofPattern("dd/MM/yyyy");
+
+		return inicio.format(formato) + " a " + termino.format(formato);
 	}
 
-	public boolean contem(Date data) {
-		return inicio.after(data) && termino.before(data);
+	public boolean contem(LocalDate data) {
+		return false;
 	}
 }

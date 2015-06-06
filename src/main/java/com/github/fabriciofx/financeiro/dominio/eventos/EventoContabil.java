@@ -1,19 +1,23 @@
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.dominio.eventos;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import com.github.fabriciofx.financeiro.dominio.Cliente;
+import com.github.fabriciofx.financeiro.dominio.Lancamento;
+import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
 
 public class EventoContabil {
 	private TipoEvento tipo;
-	private Date quandoOcorreu;
-	private Date quandoObservado;
+	private LocalDate quandoOcorreu;
+	private LocalDate quandoObservado;
 	private Cliente cliente;
 	private List<Lancamento> lancamentosResultantes = new ArrayList<>();
 	private List<EventoContabil> eventosSecundarios = new ArrayList<>();
 
-	public EventoContabil(TipoEvento tipo, Date quandoOcorreu,
-			Date quandoObservado, Cliente cliente) {
+	public EventoContabil(TipoEvento tipo, LocalDate quandoOcorreu,
+			LocalDate quandoObservado, Cliente cliente) {
 		this.tipo = tipo;
 		this.quandoOcorreu = quandoOcorreu;
 		this.quandoObservado = quandoObservado;
@@ -28,11 +32,11 @@ public class EventoContabil {
 		return tipo;
 	}
 
-	public Date getQuandoObservado() {
+	public LocalDate getQuandoObservado() {
 		return quandoObservado;
 	}
 
-	public Date getQuandoOcorreu() {
+	public LocalDate getQuandoOcorreu() {
 		return quandoOcorreu;
 	}
 

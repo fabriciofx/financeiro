@@ -1,7 +1,10 @@
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.dominio.eventos;
 
 import java.util.Date;
 import java.util.List;
+
+import com.github.fabriciofx.financeiro.dominio.Lancamento;
+import com.github.fabriciofx.financeiro.dominio.NumeroConta;
 
 public interface Evento {
 	public Evento novoEvento(TipoEvento tipo, NumeroConta conta,

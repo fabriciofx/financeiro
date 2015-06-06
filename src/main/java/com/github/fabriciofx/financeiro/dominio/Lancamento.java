@@ -1,13 +1,13 @@
 package com.github.fabriciofx.financeiro.dominio;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Lancamento {
-	private Date data;
+	private LocalDate data;
 	private TipoLancamento tipo;
 	private double valor;
 
-	public Lancamento(double valor, Date data, TipoLancamento tipo) {
+	public Lancamento(double valor, LocalDate data, TipoLancamento tipo) {
 		this.valor = valor;
 		this.data = data;
 		this.tipo = tipo;
@@ -17,7 +17,7 @@ public class Lancamento {
 		return valor;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 

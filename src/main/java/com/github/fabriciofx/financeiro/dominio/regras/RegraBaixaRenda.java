@@ -1,4 +1,9 @@
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.dominio.regras;
+
+import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
+import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
+import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
+import com.github.fabriciofx.financeiro.dominio.eventos.EventoContabil;
 
 public class RegraBaixaRenda extends RegraLancamento {
 	private double taxa;

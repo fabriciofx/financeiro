@@ -1,13 +1,13 @@
 package com.github.fabriciofx.financeiro.dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TransacaoContabil {
 	private List<Lancamento> lancamentos = new ArrayList<>();
 
-	public TransacaoContabil(double valor, Conta de, Conta para, Date data) {
+	public TransacaoContabil(double valor, Conta de, Conta para, LocalDate data) {
 		// A transação é composta de dois lançamentos, cada um de valor
 		// oposto ao outro, para que as somas destes lançamentos sejam iguais
 		// a zero.

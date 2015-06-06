@@ -1,24 +1,27 @@
 package com.github.fabriciofx.financeiro.dominio;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
+
 public class AcordoServico {
 	private double taxa;
-	private Map<TipoEvento, Map<Date, RegraLancamento>> regrasLancamento = new HashMap<TipoEvento, Map<Date, RegraLancamento>>();
+	private Map<TipoEvento, Map<LocalDate, RegraLancamento>> regrasLancamento = new HashMap<TipoEvento, Map<LocalDate, RegraLancamento>>();
 
 	public void addRegraLancamento(TipoEvento tipoEvento,
-			RegraLancamento regra, Date vigencia) {
+			RegraLancamento regra, LocalDate vigencia) {
 		if (regrasLancamento.get(tipoEvento) == null) {
 			regrasLancamento.put(tipoEvento,
-					new HashMap<Date, RegraLancamento>());
+					new HashMap<LocalDate, RegraLancamento>());
 		}
 
 		regrasLancamento.get(tipoEvento).put(vigencia, regra);
 	}
 
-	public RegraLancamento getRegraLancamento(TipoEvento tipoEvento, Date quando) {
+	public RegraLancamento getRegraLancamento(TipoEvento tipoEvento,
+			LocalDate quando) {
 		return regrasLancamento.get(tipoEvento).get(quando);
 	}
 

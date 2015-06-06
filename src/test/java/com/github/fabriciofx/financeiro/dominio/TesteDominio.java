@@ -1,20 +1,14 @@
 package com.github.fabriciofx.financeiro.dominio;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-import com.github.fabriciofx.financeiro.dominio.AcordoServico;
-import com.github.fabriciofx.financeiro.dominio.Cliente;
-import com.github.fabriciofx.financeiro.dominio.Consumo;
-import com.github.fabriciofx.financeiro.dominio.Conta;
-import com.github.fabriciofx.financeiro.dominio.EventoContabil;
-import com.github.fabriciofx.financeiro.dominio.EventoMonetario;
-import com.github.fabriciofx.financeiro.dominio.Lancamento;
-import com.github.fabriciofx.financeiro.dominio.Moeda;
-import com.github.fabriciofx.financeiro.dominio.RegraBaixaRenda;
-import com.github.fabriciofx.financeiro.dominio.RegraFormulaSimples;
-import com.github.fabriciofx.financeiro.dominio.RegraMultiplicaPorTaxa;
-import com.github.fabriciofx.financeiro.dominio.TipoEvento;
-import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
+import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
+import com.github.fabriciofx.financeiro.dominio.eventos.EventoContabil;
+import com.github.fabriciofx.financeiro.dominio.eventos.EventoMonetario;
+import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
+import com.github.fabriciofx.financeiro.dominio.regras.RegraBaixaRenda;
+import com.github.fabriciofx.financeiro.dominio.regras.RegraFormulaSimples;
+import com.github.fabriciofx.financeiro.dominio.regras.RegraMultiplicaPorTaxa;
 
 public class TesteDominio {
 	public static Cliente configuraClienteNormal() {
@@ -24,11 +18,11 @@ public class TesteDominio {
 		padrao.setTaxa(10);
 		padrao.addRegraLancamento(TipoEvento.CONSUMO,
 				new RegraMultiplicaPorTaxa(TipoLancamento.CONSUMO_BASICO),
-				new Date());
+				LocalDate.now());
 		padrao.addRegraLancamento(TipoEvento.CHAMADA, new RegraFormulaSimples(
-				0.5, 10.0, TipoLancamento.SERVICO), new Date());
+				0.5, 10.0, TipoLancamento.SERVICO), LocalDate.now());
 		padrao.addRegraLancamento(TipoEvento.IMPOSTO, new RegraFormulaSimples(
-				0.055, 0, TipoLancamento.IMPOSTO), new Date());
+				0.055, 0, TipoLancamento.IMPOSTO), LocalDate.now());
 		cam.setAcordoServico(padrao);
 
 		return cam;
@@ -40,10 +34,10 @@ public class TesteDominio {
 		AcordoServico baixaRenda = new AcordoServico();
 		baixaRenda.setTaxa(10);
 		baixaRenda.addRegraLancamento(TipoEvento.CONSUMO, new RegraBaixaRenda(
-				TipoLancamento.CONSUMO_BASICO, 5, 50), new Date());
+				TipoLancamento.CONSUMO_BASICO, 5, 50), LocalDate.now());
 		baixaRenda.addRegraLancamento(TipoEvento.CHAMADA,
 				new RegraFormulaSimples(0, 10.0, TipoLancamento.SERVICO),
-				new Date());
+				LocalDate.now());
 		zé.setAcordoServico(baixaRenda);
 
 		return zé;
@@ -52,7 +46,7 @@ public class TesteDominio {
 	public static void testConsumo() {
 		Cliente cam = configuraClienteNormal();
 
-		Consumo evento = new Consumo(50, new Date(), new Date(), cam);
+		Consumo evento = new Consumo(50, LocalDate.now(), LocalDate.now(), cam);
 		evento.processa();
 
 		Lancamento lancamentoResultante = evento.getLancamento(cam, 0);
@@ -61,7 +55,7 @@ public class TesteDominio {
 
 	public void testConsumo2() {
 		Cliente cam = configuraClienteNormal();
-		Consumo evento = new Consumo(50, new Date(), new Date(), cam);
+		Consumo evento = new Consumo(50, LocalDate.now(), LocalDate.now(), cam);
 		evento.processa();
 		Lancamento lancamentoConsumo = evento.getLancamento(cam, 0);
 		Lancamento lancamentoImposto = evento.getLancamento(cam, 1);
@@ -78,10 +72,10 @@ public class TesteDominio {
 	public static void testConsumoBaixaRenda() {
 		Cliente zé = configuraClienteBaixaRenda();
 
-		Consumo evento = new Consumo(50, new Date(), new Date(), zé);
+		Consumo evento = new Consumo(50, LocalDate.now(), LocalDate.now(), zé);
 		evento.processa();
 
-		Consumo evento2 = new Consumo(51, new Date(), new Date(), zé);
+		Consumo evento2 = new Consumo(51, LocalDate.now(), LocalDate.now(), zé);
 		evento2.processa();
 
 		Lancamento lancamentoResultante1 = zé.getLancamentos().get(0);
@@ -95,7 +89,7 @@ public class TesteDominio {
 		Cliente cam = configuraClienteNormal();
 
 		EventoContabil evento = new EventoMonetario(40.0, TipoEvento.CHAMADA,
-				new Date(), new Date(), cam);
+				LocalDate.now(), LocalDate.now(), cam);
 		evento.processa();
 
 		Lancamento lancamentoResultante = cam.getLancamentos().get(0);
@@ -106,9 +100,9 @@ public class TesteDominio {
 		Conta receitas = new Conta(Moeda.BRA);
 		Conta contasProteladas = new Conta(Moeda.BRA);
 		Conta contasAReceber = new Conta(Moeda.BRA);
-		
-		receitas.saque(500, contasAReceber, new Date());
-		receitas.saque(200, contasProteladas, new Date());
+
+		receitas.saque(500, contasAReceber, LocalDate.now());
+		receitas.saque(200, contasProteladas, LocalDate.now());
 
 		// assertEquals(500, contasAReceber.saldo());
 		// assertEquals(200, contasProteladas.saldo());

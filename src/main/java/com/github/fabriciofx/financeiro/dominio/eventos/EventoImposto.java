@@ -1,4 +1,5 @@
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.dominio.eventos;
+
 
 public class EventoImposto extends EventoMonetario {
 	private EventoContabil base;

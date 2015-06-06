@@ -1,7 +1,7 @@
 package com.github.fabriciofx.financeiro.dominio;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Conta {
@@ -16,7 +16,7 @@ public class Conta {
 		return moeda;
 	}
 
-	public void addLancamento(double valor, Date data) {
+	public void addLancamento(double valor, LocalDate data) {
 		// assert(moeda.equals(valor.Moeda()));
 		lancamentos.add(new Lancamento(valor, data, TipoLancamento.TRANSACAO));
 	}
@@ -69,11 +69,11 @@ public class Conta {
 		return resultado;
 	}
 
-	public void saque(double valor, Conta alvo, Date data) {
+	public void saque(double valor, Conta alvo, LocalDate data) {
 		new TransacaoContabil(valor, this, alvo, data);
 	}
 
-	public void deposito(double valor, Conta de, Date data) {
+	public void deposito(double valor, Conta de, LocalDate data) {
 		new TransacaoContabil(valor, de, this, data);
 	}
 }
