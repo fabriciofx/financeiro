@@ -5,14 +5,14 @@ import java.time.LocalDate;
 import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
 
 public class Lancamento {
-	private LocalDate data;
 	private TipoLancamento tipo;
+	private LocalDate data;
 	private double valor;
 
-	public Lancamento(double valor, LocalDate data, TipoLancamento tipo) {
-		this.valor = valor;
-		this.data = data;
+	public Lancamento(TipoLancamento tipo, LocalDate data, double valor) {
 		this.tipo = tipo;
+		this.data = data;
+		this.valor = valor;
 	}
 
 	public double getValor() {

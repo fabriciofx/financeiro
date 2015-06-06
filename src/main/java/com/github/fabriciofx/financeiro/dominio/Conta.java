@@ -20,7 +20,7 @@ public class Conta {
 
 	public void addLancamento(double valor, LocalDate data) {
 		// assert(moeda.equals(valor.Moeda()));
-		lancamentos.add(new Lancamento(valor, data, TipoLancamento.TRANSACAO));
+		lancamentos.add(new Lancamento(TipoLancamento.TRANSACAO, data, valor));
 	}
 
 	public void addLancamento(Lancamento lancamento) {

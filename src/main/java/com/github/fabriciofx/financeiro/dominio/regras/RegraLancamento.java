@@ -12,8 +12,8 @@ public abstract class RegraLancamento {
 	}
 
 	private void facaLancamento(Evento evento, double valor) {
-		Lancamento novoLancamento = new Lancamento(valor,
-				evento.getQuandoObservado(), tipo);
+		Lancamento novoLancamento = new Lancamento(tipo,
+				evento.getQuandoObservado(), valor);
 		evento.getCliente().addLancamento(novoLancamento);
 		evento.addLancamentoResultante(novoLancamento);
 	}
