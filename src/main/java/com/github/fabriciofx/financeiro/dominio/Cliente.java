@@ -7,9 +7,10 @@ import java.util.List;
 public class Cliente {
 	private String nome;
 	private AcordoServico acordoServico;
-	private List<Lancamento> lancamentos = new ArrayList<>();
+	private List<Lancamento> lancamentos;
 
 	public Cliente(String nome) {
+		this.lancamentos = new ArrayList<>();
 		this.nome = nome;
 	}
 
