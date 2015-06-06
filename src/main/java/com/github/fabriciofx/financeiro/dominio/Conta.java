@@ -7,10 +7,11 @@ import java.util.List;
 import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
 
 public class Conta {
-	private List<Lancamento> lancamentos = new ArrayList<>();
+	private List<Lancamento> lancamentos;
 	private Moeda moeda;
 
 	public Conta(Moeda moeda) {
+		this.lancamentos = new ArrayList<>();
 		this.moeda = moeda;
 	}
 
