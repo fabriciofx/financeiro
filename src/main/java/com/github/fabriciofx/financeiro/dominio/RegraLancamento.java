@@ -1,6 +1,6 @@
 package com.github.fabriciofx.financeiro.dominio;
 
-import com.github.fabriciofx.financeiro.dominio.eventos.EventoContabil;
+import com.github.fabriciofx.financeiro.dominio.eventos.Evento;
 import com.github.fabriciofx.financeiro.dominio.eventos.EventoImposto;
 
 public abstract class RegraLancamento {
@@ -10,7 +10,7 @@ public abstract class RegraLancamento {
 		this.tipo = tipo;
 	}
 
-	private void facaLancamento(EventoContabil evento, double valor) {
+	private void facaLancamento(Evento evento, double valor) {
 		Lancamento novoLancamento = new Lancamento(valor,
 				evento.getQuandoObservado(), tipo);
 		evento.getCliente().addLancamento(novoLancamento);
@@ -21,7 +21,7 @@ public abstract class RegraLancamento {
 		return tipo != TipoLancamento.IMPOSTO;
 	}
 
-	public void processa(EventoContabil evento) {
+	public void processa(Evento evento) {
 		facaLancamento(evento, calculaValor(evento));
 
 		if (isTributavel()) {
@@ -29,5 +29,5 @@ public abstract class RegraLancamento {
 		}
 	}
 
-	protected abstract double calculaValor(EventoContabil evento);
+	protected abstract double calculaValor(Evento evento);
 }

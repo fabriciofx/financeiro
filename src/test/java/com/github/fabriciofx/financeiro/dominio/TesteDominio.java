@@ -3,7 +3,7 @@ package com.github.fabriciofx.financeiro.dominio;
 import java.time.LocalDate;
 
 import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
-import com.github.fabriciofx.financeiro.dominio.eventos.EventoContabil;
+import com.github.fabriciofx.financeiro.dominio.eventos.Evento;
 import com.github.fabriciofx.financeiro.dominio.eventos.EventoMonetario;
 import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraBaixaRenda;
@@ -88,7 +88,7 @@ public class TesteDominio {
 	public static void testServicoDepoisDaMudanca() {
 		Cliente cam = configuraClienteNormal();
 
-		EventoContabil evento = new EventoMonetario(40.0, TipoEvento.CHAMADA,
+		Evento evento = new EventoMonetario(40.0, TipoEvento.CHAMADA,
 				LocalDate.now(), LocalDate.now(), cam);
 		evento.processa();
 

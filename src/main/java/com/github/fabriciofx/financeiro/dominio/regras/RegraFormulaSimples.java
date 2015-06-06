@@ -2,7 +2,7 @@ package com.github.fabriciofx.financeiro.dominio.regras;
 
 import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
 import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
-import com.github.fabriciofx.financeiro.dominio.eventos.EventoContabil;
+import com.github.fabriciofx.financeiro.dominio.eventos.Evento;
 import com.github.fabriciofx.financeiro.dominio.eventos.EventoMonetario;
 
 public class RegraFormulaSimples extends RegraLancamento {
@@ -16,7 +16,7 @@ public class RegraFormulaSimples extends RegraLancamento {
 		this.valorFixo = valorFixo;
 	}
 
-	protected double calculaValor(EventoContabil evento) {
+	protected double calculaValor(Evento evento) {
 		double valorDoEvento = ((EventoMonetario) evento).getValor();
 
 		return valorDoEvento * multiplicador + valorFixo;

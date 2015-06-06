@@ -3,7 +3,7 @@ package com.github.fabriciofx.financeiro.dominio.regras;
 import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
 import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
 import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
-import com.github.fabriciofx.financeiro.dominio.eventos.EventoContabil;
+import com.github.fabriciofx.financeiro.dominio.eventos.Evento;
 
 public class RegraBaixaRenda extends RegraLancamento {
 	private double taxa;
@@ -16,7 +16,7 @@ public class RegraBaixaRenda extends RegraLancamento {
 		this.limiteDeConsumo = limiteDeConsumo;
 	}
 
-	protected double calculaValor(EventoContabil evento) {
+	protected double calculaValor(Evento evento) {
 		Consumo eventoDeConsumo = (Consumo) evento;
 		double consumoAtual = eventoDeConsumo.getValor();
 

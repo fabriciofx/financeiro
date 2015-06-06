@@ -8,15 +8,15 @@ import com.github.fabriciofx.financeiro.dominio.Cliente;
 import com.github.fabriciofx.financeiro.dominio.Lancamento;
 import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
 
-public class EventoContabil {
+public class Evento {
 	private TipoEvento tipo;
 	private LocalDate quandoOcorreu;
 	private LocalDate quandoObservado;
 	private Cliente cliente;
 	private List<Lancamento> lancamentosResultantes = new ArrayList<>();
-	private List<EventoContabil> eventosSecundarios = new ArrayList<>();
+	private List<Evento> eventosSecundarios = new ArrayList<>();
 
-	public EventoContabil(TipoEvento tipo, LocalDate quandoOcorreu,
+	public Evento(TipoEvento tipo, LocalDate quandoOcorreu,
 			LocalDate quandoObservado, Cliente cliente) {
 		this.tipo = tipo;
 		this.quandoOcorreu = quandoOcorreu;
@@ -59,7 +59,7 @@ public class EventoContabil {
 		return regra;
 	}
 
-	public void addEventoSecundario(EventoContabil evento) {
+	public void addEventoSecundario(Evento evento) {
 		// so deve ser chamado pelo metodo set do evento secundario
 		eventosSecundarios.add(evento);
 	}
@@ -68,7 +68,7 @@ public class EventoContabil {
 		List<Lancamento> resultado = new ArrayList<>();
 		resultado.addAll(lancamentosResultantes);
 
-		for (EventoContabil evento : eventosSecundarios) {
+		for (Evento evento : eventosSecundarios) {
 			resultado.addAll(evento.getTodosLancamentosResultantes());
 		}
 

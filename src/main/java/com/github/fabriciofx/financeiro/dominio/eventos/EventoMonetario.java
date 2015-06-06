@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.github.fabriciofx.financeiro.dominio.Cliente;
 
-public class EventoMonetario extends EventoContabil {
+public class EventoMonetario extends Evento {
 	private double valor;
 
 	public EventoMonetario(double valor, TipoEvento tipo,

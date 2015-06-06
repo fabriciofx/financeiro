@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import com.github.fabriciofx.financeiro.dominio.Cliente;
 
-public class Consumo extends EventoContabil {
+public class Consumo extends Evento {
 	private double valor;
 
 	public Consumo(double valor, LocalDate quandoOcorreu,
