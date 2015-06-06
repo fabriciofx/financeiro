@@ -9,7 +9,7 @@ import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
 public class Transacao {
 	private List<Lancamento> lancamentos = new ArrayList<>();
 
-	public Transacao(double valor, Conta de, Conta para, LocalDate data) {
+	public Transacao(Conta de, Conta para, LocalDate data, double valor) {
 		// A transação é composta de dois lançamentos, cada um de valor
 		// oposto ao outro, para que as somas destes lançamentos sejam iguais
 		// a zero.
