@@ -73,10 +73,10 @@ public class Conta {
 	}
 
 	public void saque(LocalDate data, Conta para, double valor) {
-		new Transacao(this, para, data, valor);
+		new Transacao(data, this, para, valor);
 	}
 
 	public void deposito(LocalDate data, Conta de, double valor) {
-		new Transacao(de, this, data, valor);
+		new Transacao(data, de, this, valor);
 	}
 }
