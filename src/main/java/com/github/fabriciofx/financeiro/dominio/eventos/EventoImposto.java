@@ -1,5 +1,8 @@
 package com.github.fabriciofx.financeiro.dominio.eventos;
 
+import com.github.fabriciofx.financeiro.dominio.Evento;
+import com.github.fabriciofx.financeiro.dominio.TipoEvento;
+
 public class EventoImposto extends EventoMonetario {
 	private Evento base;
 

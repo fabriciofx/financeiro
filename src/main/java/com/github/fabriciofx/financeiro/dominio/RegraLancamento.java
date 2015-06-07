@@ -1,7 +1,5 @@
-package com.github.fabriciofx.financeiro.dominio.regras;
+package com.github.fabriciofx.financeiro.dominio;
 
-import com.github.fabriciofx.financeiro.dominio.Lancamento;
-import com.github.fabriciofx.financeiro.dominio.eventos.Evento;
 import com.github.fabriciofx.financeiro.dominio.eventos.EventoImposto;
 
 public abstract class RegraLancamento {

@@ -8,13 +8,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
-import com.github.fabriciofx.financeiro.dominio.eventos.Evento;
 import com.github.fabriciofx.financeiro.dominio.eventos.EventoMonetario;
-import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraBaixaRenda;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraFormulaSimples;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraMultiplicaPorTaxa;
-import com.github.fabriciofx.financeiro.dominio.regras.TipoLancamento;
 
 public class TesteRegra {
 	private Cliente clienteNormal, clienteBaixaRenda;

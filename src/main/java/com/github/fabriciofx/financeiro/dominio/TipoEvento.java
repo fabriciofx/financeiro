@@ -1,4 +1,4 @@
-package com.github.fabriciofx.financeiro.dominio.eventos;
+package com.github.fabriciofx.financeiro.dominio;
 
 public enum TipoEvento {
 	CONSUMO("Consumo"), CHAMADA("Chamada de Serviço"), IMPOSTO("Imposto");

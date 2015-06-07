@@ -1,12 +1,8 @@
-package com.github.fabriciofx.financeiro.dominio.eventos;
+package com.github.fabriciofx.financeiro.dominio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.github.fabriciofx.financeiro.dominio.Cliente;
-import com.github.fabriciofx.financeiro.dominio.Lancamento;
-import com.github.fabriciofx.financeiro.dominio.regras.RegraLancamento;
 
 public class Evento {
 	private TipoEvento tipo;
