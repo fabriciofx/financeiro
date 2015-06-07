@@ -41,7 +41,13 @@ public class Conta {
 	}
 
 	public double saldo() {
-		return saldo(new Periodo());
+		double resultado = 0.0;
+
+		for (Lancamento lancamento : lancamentos) {
+			resultado += lancamento.getValor();
+		}
+
+		return resultado;
 	}
 
 	public double depositos(Periodo periodo) {
