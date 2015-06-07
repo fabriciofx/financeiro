@@ -5,21 +5,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.fabriciofx.financeiro.dominio.eventos.TipoEvento;
+import com.github.fabriciofx.financeiro.dominio.infraestrutura.SingleTemporalCollection;
+import com.github.fabriciofx.financeiro.dominio.infraestrutura.TemporalCollection;
 import com.github.fabriciofx.financeiro.dominio.regras.RegraLancamento;
 
 public class AcordoServico {
 	private double taxa;
-	private Map<TipoEvento, Map<LocalDate, RegraLancamento>> regrasLancamento;
+	private Map<TipoEvento, TemporalCollection<RegraLancamento>> regrasLancamento;
 
 	public AcordoServico() {
-		regrasLancamento = new HashMap<TipoEvento, Map<LocalDate, RegraLancamento>>();
+		regrasLancamento = new HashMap<TipoEvento, TemporalCollection<RegraLancamento>>();
 	}
 
 	public void addRegraLancamento(TipoEvento tipoEvento,
 			RegraLancamento regra, LocalDate vigencia) {
 		if (regrasLancamento.get(tipoEvento) == null) {
 			regrasLancamento.put(tipoEvento,
-					new HashMap<LocalDate, RegraLancamento>());
+					new SingleTemporalCollection<RegraLancamento>());
 		}
 
 		regrasLancamento.get(tipoEvento).put(vigencia, regra);
