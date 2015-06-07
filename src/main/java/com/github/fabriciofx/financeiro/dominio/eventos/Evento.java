@@ -56,6 +56,10 @@ public class Evento {
 		RegraLancamento regra = cliente.getAcordoServico().getRegraLancamento(
 				this.getTipoEvento(), this.quandoOcorreu);
 
+		if (regra == null) {
+			throw new RuntimeException("regra não encontrada!");
+		}
+
 		return regra;
 	}
 
