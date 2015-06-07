@@ -26,7 +26,8 @@ public abstract class RegraLancamento {
 		facaLancamento(evento, calculaValor(evento));
 
 		if (isTributavel()) {
-			new EventoImposto(evento, calculaValor(evento)).processa();
+			EventoImposto ei = new EventoImposto(evento, calculaValor(evento));
+			ei.processa();
 		}
 	}
 
