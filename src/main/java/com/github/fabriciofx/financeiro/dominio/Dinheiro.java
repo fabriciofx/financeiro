@@ -111,7 +111,7 @@ public final class Dinheiro implements Comparable<Dinheiro> {
 		final NumberFormat formatoMoeda = NumberFormat.getInstance(localizacao);
 		formatoMoeda.setMinimumFractionDigits(moeda.getDefaultFractionDigits());
 
-		return moeda.getSymbol() + " " + formatoMoeda.format(quantia());
+		return moeda.getSymbol(localizacao) + " " + formatoMoeda.format(quantia());
 	}
 
 	@Override

@@ -66,28 +66,28 @@ public class TesteDinheiro {
 	public void zeroDolares() {
 		final Dinheiro zero = new Dinheiro("0.00", "USD");
 
-		assertEquals("US$ 0.00", zero.toString(Locale.US));
+		assertEquals("$ 0.00", zero.toString(Locale.US));
 	}
 
 	@Test
 	public void umDolar() {
 		final Dinheiro zero = new Dinheiro("1.00", "USD");
 
-		assertEquals("US$ 1.00", zero.toString(Locale.US));
+		assertEquals("$ 1.00", zero.toString(Locale.US));
 	}
 
 	@Test
 	public void dezDolaresESetentaCents() {
 		final Dinheiro d1 = new Dinheiro("10.70", "USD");
 
-		assertEquals("US$ 10.70", d1.toString(Locale.US));
+		assertEquals("$ 10.70", d1.toString(Locale.US));
 	}
 
 	@Test
 	public void maisDeCentoEVinteTresMilhoesDeDolares() {
 		final Dinheiro d1 = new Dinheiro("123456789.10", "USD");
 
-		assertEquals("US$ 123,456,789.10", d1.toString(Locale.US));
+		assertEquals("$ 123,456,789.10", d1.toString(Locale.US));
 	}
 
 	@Test
@@ -95,9 +95,9 @@ public class TesteDinheiro {
 		final Dinheiro d1 = new Dinheiro("10.70", "USD");
 		final Dinheiro[] parcelas = d1.parcela(3);
 
-		assertEquals("US$ 3.56", parcelas[0].toString(Locale.US));
-		assertEquals("US$ 3.56", parcelas[1].toString(Locale.US));
-		assertEquals("US$ 3.58", parcelas[2].toString(Locale.US));
+		assertEquals("$ 3.56", parcelas[0].toString(Locale.US));
+		assertEquals("$ 3.56", parcelas[1].toString(Locale.US));
+		assertEquals("$ 3.58", parcelas[2].toString(Locale.US));
 	}
 
 	@Test
