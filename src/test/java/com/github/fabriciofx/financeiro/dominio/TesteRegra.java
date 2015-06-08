@@ -21,20 +21,23 @@ public class TesteRegra {
 
 		AcordoServico padrao = new AcordoServico();
 		padrao.setTaxa(10);
-		
+
 		padrao.addRegraLancamento(TipoEvento.CONSUMO,
 				new RegraMultiplicaPorTaxa(TipoLancamento.CONSUMO_BASICO),
 				LocalDate.of(2015, 1, 1));
-		
+
 		padrao.addRegraLancamento(TipoEvento.CHAMADA, new RegraFormulaSimples(
-				TipoLancamento.SERVICO, 0.5, 10.00), LocalDate.of(2015, 1, 1));
-		
+				TipoLancamento.SERVICO, 0.5, new Dinheiro("10.00")), LocalDate
+				.of(2015, 1, 1));
+
 		padrao.addRegraLancamento(TipoEvento.CHAMADA, new RegraFormulaSimples(
-				TipoLancamento.SERVICO, 0.5, 15.00), LocalDate.of(2015, 10, 1));
-		
+				TipoLancamento.SERVICO, 0.5, new Dinheiro("15.00")), LocalDate
+				.of(2015, 10, 1));
+
 		padrao.addRegraLancamento(TipoEvento.IMPOSTO, new RegraFormulaSimples(
-				TipoLancamento.IMPOSTO, 0.055, 0.00), LocalDate.of(2015, 1, 1));
-		
+				TipoLancamento.IMPOSTO, 0.055, Dinheiro.ZERO_REAL), LocalDate
+				.of(2015, 1, 1));
+
 		clienteNormal.setAcordoServico(padrao);
 
 		return clienteNormal;
@@ -45,17 +48,18 @@ public class TesteRegra {
 
 		AcordoServico baixaRenda = new AcordoServico();
 		baixaRenda.setTaxa(10);
-		
-		baixaRenda.addRegraLancamento(TipoEvento.CONSUMO, new RegraBaixaRenda(
-						TipoLancamento.CONSUMO_BASICO, 5, 50), LocalDate.of(
-						2015, 1, 1));
-		
-		baixaRenda.addRegraLancamento(TipoEvento.CHAMADA,
-				new RegraFormulaSimples(TipoLancamento.SERVICO, 0, 10.00),
-				LocalDate.of(2015, 10, 1));
 
-		baixaRenda.addRegraLancamento(TipoEvento.IMPOSTO, new RegraFormulaSimples(
-				TipoLancamento.IMPOSTO, 0.055, 0.00), LocalDate.of(2015, 1, 1));
+		baixaRenda.addRegraLancamento(TipoEvento.CONSUMO, new RegraBaixaRenda(
+				TipoLancamento.CONSUMO_BASICO, 5, new KWH(50)), LocalDate.of(
+				2015, 1, 1));
+
+		baixaRenda.addRegraLancamento(TipoEvento.CHAMADA,
+				new RegraFormulaSimples(TipoLancamento.SERVICO, 0,
+						new Dinheiro("10.00")), LocalDate.of(2015, 10, 1));
+
+		baixaRenda.addRegraLancamento(TipoEvento.IMPOSTO,
+				new RegraFormulaSimples(TipoLancamento.IMPOSTO, 0.055, Dinheiro.ZERO_REAL),
+				LocalDate.of(2015, 1, 1));
 
 		clienteBaixaRenda.setAcordoServico(baixaRenda);
 
@@ -71,42 +75,44 @@ public class TesteRegra {
 	@Test
 	public void consumo() {
 		Consumo evento = new Consumo(LocalDate.of(2015, 10, 25), LocalDate.of(
-				2015, 10, 25), clienteNormal, 50);
+				2015, 10, 25), clienteNormal, new KWH(50));
 		evento.processa();
 		Lancamento lancamentoResultante = evento
 				.getLancamento(clienteNormal, 0);
 
-		assertEquals(500.0, lancamentoResultante.getValor(), 0.01);
+		assertEquals(new Dinheiro("500.00"), lancamentoResultante.getValor());
 	}
 
 	@Test
 	public void servico() {
 		Evento evento = new EventoMonetario(TipoEvento.CHAMADA, LocalDate.of(
-				2015, 5, 25), LocalDate.of(2015, 5, 25), clienteNormal, 40.00);
+				2015, 5, 25), LocalDate.of(2015, 5, 25), clienteNormal,
+				new Dinheiro("40.00"));
 		evento.processa();
 		Lancamento lancamentoResultante = clienteNormal.getLancamentos().get(0);
 
-		assertEquals(30.00, lancamentoResultante.getValor(), 0.01);
+		assertEquals(new Dinheiro("30.00"), lancamentoResultante.getValor());
 	}
 
 	@Test
 	public void servicoDepoisDaMudanca() {
 		Evento evento = new EventoMonetario(TipoEvento.CHAMADA, LocalDate.of(
-				2015, 10, 5), LocalDate.of(2015, 10, 15), clienteNormal, 40.00);
+				2015, 10, 5), LocalDate.of(2015, 10, 15), clienteNormal,
+				new Dinheiro("40.00"));
 		evento.processa();
 		Lancamento lancamentoResultante = clienteNormal.getLancamentos().get(0);
 
-		assertEquals(35.00, lancamentoResultante.getValor(), 0.01);
+		assertEquals(new Dinheiro("35.00"), lancamentoResultante.getValor());
 	}
 
 	@Test
 	public void consumoBaixaRenda() {
 		Consumo evento = new Consumo(LocalDate.of(2015, 10, 1), LocalDate.of(
-				2015, 10, 1), clienteBaixaRenda, 50);
+				2015, 10, 1), clienteBaixaRenda, new KWH(50));
 		evento.processa();
 
 		Consumo evento2 = new Consumo(LocalDate.of(2015, 10, 2), LocalDate.of(
-				2015, 10, 2), clienteBaixaRenda, 51);
+				2015, 10, 2), clienteBaixaRenda, new KWH(51));
 		evento2.processa();
 
 		Lancamento lancamentoResultante1 = clienteBaixaRenda.getLancamentos()
@@ -114,27 +120,27 @@ public class TesteRegra {
 		Lancamento lancamentoResultante2 = clienteBaixaRenda.getLancamentos()
 				.get(1);
 
-		assertEquals(250.0, lancamentoResultante1.getValor(), 0.01);
-		assertEquals(13.75, lancamentoResultante2.getValor(), 0.01);
+		assertEquals(new Dinheiro("250.00"), lancamentoResultante1.getValor());
+		assertEquals(new Dinheiro("13.75"), lancamentoResultante2.getValor());
 	}
 
-//	@Test
-//	public void consumoComImposto() {
-//		Consumo evento = new Consumo(LocalDate.now(), LocalDate.now(),
-//				clienteNormal, 50);
-//		evento.processa();
-//		Lancamento lancamentoConsumo = evento.getLancamento(clienteNormal, 0);
-//		Lancamento lancamentoImposto = evento.getLancamento(clienteNormal, 1);
-//
-//		assertEquals(500.00, lancamentoConsumo.getValor(), 0.01);
-//		assertEquals(TipoLancamento.CONSUMO_BASICO, lancamentoConsumo.getTipo());
-//
-//		
-//		assertEquals(27.5, lancamentoImposto.getValor(), 0.01);
-//		assertEquals(TipoLancamento.IMPOSTO, lancamentoImposto.getTipo());
-//		assertTrue(evento.getTodosLancamentosResultantes().contains(
-//				lancamentoConsumo));
-//		assertTrue(evento.getTodosLancamentosResultantes().contains(
-//				lancamentoImposto));
-//	}
+	// @Test
+	// public void consumoComImposto() {
+	// Consumo evento = new Consumo(LocalDate.now(), LocalDate.now(),
+	// clienteNormal, 50);
+	// evento.processa();
+	// Lancamento lancamentoConsumo = evento.getLancamento(clienteNormal, 0);
+	// Lancamento lancamentoImposto = evento.getLancamento(clienteNormal, 1);
+	//
+	// assertEquals(500.00, lancamentoConsumo.getValor(), 0.01);
+	// assertEquals(TipoLancamento.CONSUMO_BASICO, lancamentoConsumo.getTipo());
+	//
+	//
+	// assertEquals(27.5, lancamentoImposto.getValor(), 0.01);
+	// assertEquals(TipoLancamento.IMPOSTO, lancamentoImposto.getTipo());
+	// assertTrue(evento.getTodosLancamentosResultantes().contains(
+	// lancamentoConsumo));
+	// assertTrue(evento.getTodosLancamentosResultantes().contains(
+	// lancamentoImposto));
+	// }
 }

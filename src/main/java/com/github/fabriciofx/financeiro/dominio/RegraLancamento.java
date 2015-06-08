@@ -9,7 +9,7 @@ public abstract class RegraLancamento {
 		this.tipo = tipo;
 	}
 
-	private void facaLancamento(Evento evento, double valor) {
+	private void facaLancamento(Evento evento, Dinheiro valor) {
 		Lancamento novoLancamento = new Lancamento(tipo,
 				evento.getQuandoObservado(), valor);
 		evento.getCliente().addLancamento(novoLancamento);
@@ -29,5 +29,5 @@ public abstract class RegraLancamento {
 		}
 	}
 
-	protected abstract double calculaValor(Evento evento);
+	protected abstract Dinheiro calculaValor(Evento evento);
 }

@@ -1,5 +1,6 @@
 package com.github.fabriciofx.financeiro.dominio.regras;
 
+import com.github.fabriciofx.financeiro.dominio.Dinheiro;
 import com.github.fabriciofx.financeiro.dominio.Evento;
 import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
 import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
@@ -10,9 +11,10 @@ public class RegraMultiplicaPorTaxa extends RegraLancamento {
 		super(tipo);
 	}
 
-	protected double calculaValor(Evento evento) {
+	protected Dinheiro calculaValor(Evento evento) {
 		Consumo eventoDeConsumo = (Consumo) evento;
 
-		return eventoDeConsumo.getValor() * eventoDeConsumo.getTaxa();
+		return new Dinheiro(Double.toString(eventoDeConsumo.getValor()
+				* eventoDeConsumo.getTaxa()));
 	}
 }

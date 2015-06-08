@@ -5,15 +5,15 @@ import java.time.LocalDate;
 public class Lancamento {
 	private TipoLancamento tipo;
 	private LocalDate data;
-	private double valor;
+	private Dinheiro valor;
 
-	public Lancamento(TipoLancamento tipo, LocalDate data, double valor) {
+	public Lancamento(TipoLancamento tipo, LocalDate data, Dinheiro valor) {
 		this.tipo = tipo;
 		this.data = data;
 		this.valor = valor;
 	}
 
-	public double getValor() {
+	public Dinheiro getValor() {
 		return valor;
 	}
 

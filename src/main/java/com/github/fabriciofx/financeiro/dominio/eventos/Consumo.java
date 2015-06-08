@@ -4,19 +4,20 @@ import java.time.LocalDate;
 
 import com.github.fabriciofx.financeiro.dominio.Cliente;
 import com.github.fabriciofx.financeiro.dominio.Evento;
+import com.github.fabriciofx.financeiro.dominio.KWH;
 import com.github.fabriciofx.financeiro.dominio.TipoEvento;
 
 public class Consumo extends Evento {
-	private double valor;
+	private KWH kwh;
 
 	public Consumo(LocalDate quandoOcorreu, LocalDate quandoObservado,
-			Cliente cliente, double valor) {
+			Cliente cliente, KWH kwh) {
 		super(TipoEvento.CONSUMO, quandoOcorreu, quandoObservado, cliente);
-		this.valor = valor;
+		this.kwh = kwh;
 	}
 
 	public double getValor() {
-		return valor;
+		return kwh.valor();
 	}
 
 	public double getTaxa() {

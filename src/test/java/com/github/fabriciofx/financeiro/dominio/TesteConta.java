@@ -13,11 +13,12 @@ public class TesteConta {
 		Conta contasProteladas = new Conta();
 		Conta contasAReceber = new Conta();
 
-		receitas.saque(LocalDate.now(), contasAReceber, 500.00);
-		receitas.saque(LocalDate.now(), contasProteladas, 200.00);
+		receitas.saque(LocalDate.now(), contasAReceber, new Dinheiro("500.00"));
+		receitas.saque(LocalDate.now(), contasProteladas,
+				new Dinheiro("200.00"));
 
-		assertEquals(500.00, contasAReceber.saldo(), 0.01);
-		assertEquals(200.00, contasProteladas.saldo(), 0.01);
-		assertEquals(-700.00, receitas.saldo(), 0.01);
+		assertEquals(new Dinheiro("500.00"), contasAReceber.saldo());
+		assertEquals(new Dinheiro("200.00"), contasProteladas.saldo());
+		assertEquals(new Dinheiro("700.00").multiplica(-1), receitas.saldo());
 	}
 }

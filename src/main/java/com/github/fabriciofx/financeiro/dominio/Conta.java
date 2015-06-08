@@ -26,8 +26,7 @@ public class Conta {
 		return moeda;
 	}
 
-	public void addLancamento(LocalDate data, double valor) {
-		// assert(moeda.equals(valor.Moeda()));
+	public void addLancamento(LocalDate data, Dinheiro valor) {
 		lancamentos.add(new Lancamento(TipoLancamento.TRANSACAO, data, valor));
 	}
 
@@ -35,61 +34,61 @@ public class Conta {
 		lancamentos.add(lancamento);
 	}
 
-	public double saldo(Periodo periodo) {
-		double resultado = 0.0;
+	public Dinheiro saldo(Periodo periodo) {
+		Dinheiro resultado = Dinheiro.ZERO_REAL;
 
 		for (Lancamento lancamento : lancamentos) {
 			if (periodo.contem(lancamento.getData())) {
-				resultado += lancamento.getValor();
+				resultado = resultado.soma(lancamento.getValor());
 			}
 		}
 
 		return resultado;
 	}
 
-	public double saldo() {
-		double resultado = 0.0;
+	public Dinheiro saldo() {
+		Dinheiro resultado = Dinheiro.ZERO_REAL;
 
 		for (Lancamento lancamento : lancamentos) {
-			resultado += lancamento.getValor();
+			resultado = resultado.soma(lancamento.getValor());
 		}
 
 		return resultado;
 	}
 
-	public double depositos(Periodo periodo) {
-		double resultado = 0.0;
+	public Dinheiro depositos(Periodo periodo) {
+		Dinheiro resultado = Dinheiro.ZERO_REAL;
 
 		for (Lancamento lancamento : lancamentos) {
 			// veririca também se o lancamento possui um valor positivo
 			if (periodo.contem(lancamento.getData())
-					&& lancamento.getValor() > 0) {
-				resultado += lancamento.getValor();
+					&& lancamento.getValor().compareTo(Dinheiro.ZERO_REAL) > 0) {
+				resultado = resultado.soma(lancamento.getValor());
 			}
 		}
 
 		return resultado;
 	}
 
-	public double saques(Periodo periodo) {
-		double resultado = 0.0;
+	public Dinheiro saques(Periodo periodo) {
+		Dinheiro resultado = Dinheiro.ZERO_REAL;
 
 		for (Lancamento lancamento : lancamentos) {
 			// veririca também se o lancamento possui um valor negativo
 			if (periodo.contem(lancamento.getData())
-					&& lancamento.getValor() < 0) {
-				resultado = resultado + lancamento.getValor();
+					&& lancamento.getValor().compareTo(Dinheiro.ZERO_REAL) < 0) {
+				resultado = resultado.soma(lancamento.getValor());
 			}
 		}
 
 		return resultado;
 	}
 
-	public void saque(LocalDate data, Conta para, double valor) {
+	public void saque(LocalDate data, Conta para, Dinheiro valor) {
 		new Transacao(data, this, para, valor);
 	}
 
-	public void deposito(LocalDate data, Conta de, double valor) {
+	public void deposito(LocalDate data, Conta de, Dinheiro valor) {
 		new Transacao(data, de, this, valor);
 	}
 }
