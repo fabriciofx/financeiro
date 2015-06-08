@@ -40,7 +40,7 @@ public final class Dinheiro implements Comparable<Dinheiro> {
 	}
 
 	public Dinheiro(final BigDecimal quantia, final String isoMoeda) {
-		this(new BigDecimal(quantia.toString()), Currency.getInstance(isoMoeda));
+		this(quantia, Currency.getInstance(isoMoeda));
 	}
 
 	public Dinheiro(final BigDecimal quantia, final Currency moeda) {
