@@ -60,6 +60,14 @@ public final class Dinheiro implements Comparable<Dinheiro> {
 		return deLongParaBigDecimal(quantia, moeda);
 	}
 
+	public Dinheiro negativa() {
+		return multiplica(-1);
+	}
+
+	public boolean estaNegativo() {
+		return quantia < 0L ? true : false;
+	}
+
 	public Dinheiro soma(final Dinheiro dinheiro) {
 		verificaMoeda(dinheiro);
 
@@ -151,7 +159,13 @@ public final class Dinheiro implements Comparable<Dinheiro> {
 	@Override
 	public int compareTo(final Dinheiro dinheiro) {
 		verificaMoeda(dinheiro);
-		
-		return (int) (quantia - dinheiro.quantia);
+
+		if (quantia > dinheiro.quantia)
+			return 1;
+		else if (quantia < dinheiro.quantia) {
+			return -1;
+		}
+
+		return 0;
 	}
 }

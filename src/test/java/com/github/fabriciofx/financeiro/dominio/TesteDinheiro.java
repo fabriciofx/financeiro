@@ -165,4 +165,11 @@ public class TesteDinheiro {
 
 		assertTrue(d2.compareTo(d1) < 0);
 	}
+
+	@Test
+	public void negativaQuantia() {
+		final Dinheiro d1 = new Dinheiro("72738272.82");
+
+		assertTrue(d1.negativa().compareTo(Dinheiro.ZERO_REAL) < 0);
+	}
 }
