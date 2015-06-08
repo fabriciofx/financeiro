@@ -1,6 +1,8 @@
 package com.github.fabriciofx.financeiro.dominio;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
@@ -97,13 +99,13 @@ public class TesteDinheiro {
 		assertEquals("US$ 3.56", parcelas[1].toString(Locale.US));
 		assertEquals("US$ 3.58", parcelas[2].toString(Locale.US));
 	}
-	
+
 	@Test
 	public void somaDuasQuantiasEmReais() {
 		final Dinheiro d1 = new Dinheiro("8298312.76");
 		final Dinheiro d2 = new Dinheiro("72738272.82");
 		final Dinheiro soma = d1.soma(d2);
-		
+
 		assertEquals("R$ 81.036.585,58", soma.toString());
 	}
 
@@ -112,15 +114,55 @@ public class TesteDinheiro {
 		final Dinheiro d1 = new Dinheiro("72738272.82");
 		final Dinheiro d2 = new Dinheiro("8298312.76");
 		final Dinheiro subtracao = d1.subtraia(d2);
-		
+
 		assertEquals("R$ 64.439.960,06", subtracao.toString());
 	}
-	
+
 	@Test
 	public void multiplicaUmaQuantiaEmReaisPorUmNumero() {
 		final Dinheiro d1 = new Dinheiro("8298312.76");
 		final Dinheiro multiplicacao = d1.multiplica(7);
-		
+
 		assertEquals("R$ 58.088.189,32", multiplicacao.toString());
+	}
+
+	@Test
+	public void comparaDuasQuantiasDiferentes() {
+		final Dinheiro d1 = new Dinheiro("72738272.82");
+		final Dinheiro d2 = new Dinheiro("8298312.76");
+
+		assertFalse(d1.equals(d2));
+	}
+
+	@Test
+	public void comparaDuasQuantiasIguais() {
+		final Dinheiro d1 = new Dinheiro("72738272.82");
+		final Dinheiro d2 = new Dinheiro("72738272.82");
+
+		assertTrue(d1.equals(d2));
+	}
+
+	@Test
+	public void comparaDuasQuantiasIguaisMasDeMoedasDiferentes() {
+		final Dinheiro d1 = new Dinheiro("72738272.82");
+		final Dinheiro d2 = new Dinheiro("72738272.82", "USD");
+
+		assertFalse(d1.equals(d2));
+	}
+
+	@Test
+	public void comparaQualQuantiaEhMaior() {
+		final Dinheiro d1 = new Dinheiro("72738272.82");
+		final Dinheiro d2 = new Dinheiro("72738272.81");
+
+		assertTrue(d1.compareTo(d2) > 0);
+	}
+
+	@Test
+	public void comparaQualQuantiaEhMenor() {
+		final Dinheiro d1 = new Dinheiro("72738272.82");
+		final Dinheiro d2 = new Dinheiro("72738272.81");
+
+		assertTrue(d2.compareTo(d1) < 0);
 	}
 }

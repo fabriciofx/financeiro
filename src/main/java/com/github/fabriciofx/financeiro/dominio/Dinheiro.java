@@ -6,7 +6,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 
-public final class Dinheiro {
+public final class Dinheiro implements Comparable<Dinheiro> {
 	public static final Dinheiro ZERO_REAL = new Dinheiro("0.00");
 	public static final Dinheiro UM_REAL = new Dinheiro("1.00");
 
@@ -109,5 +109,49 @@ public final class Dinheiro {
 	@Override
 	public String toString() {
 		return toString(new Locale("pt", "BR"));
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+
+		result = prime * result
+				+ ((moeda == null) ? 0 : moeda.getCurrencyCode().hashCode());
+		result = prime * result + (int) (quantia ^ (quantia >>> 32));
+
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+
+		if (o == null)
+			return false;
+
+		if (getClass() != o.getClass())
+			return false;
+
+		Dinheiro d = (Dinheiro) o;
+
+		if (quantia != d.quantia)
+			return false;
+
+		if (moeda == null && d.moeda != null)
+			return false;
+
+		if (!moeda.getCurrencyCode().equals(d.moeda.getCurrencyCode()))
+			return false;
+
+		return true;
+	}
+
+	@Override
+	public int compareTo(final Dinheiro dinheiro) {
+		verificaMoeda(dinheiro);
+		
+		return (int) (quantia - dinheiro.quantia);
 	}
 }
