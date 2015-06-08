@@ -9,9 +9,9 @@ import org.junit.Test;
 public class TesteConta {
 	@Test
 	public void balancoUsandoTransacoes() {
-		Conta receitas = new Conta(Moeda.BRA);
-		Conta contasProteladas = new Conta(Moeda.BRA);
-		Conta contasAReceber = new Conta(Moeda.BRA);
+		Conta receitas = new Conta();
+		Conta contasProteladas = new Conta();
+		Conta contasAReceber = new Conta();
 
 		receitas.saque(LocalDate.now(), contasAReceber, 500.00);
 		receitas.saque(LocalDate.now(), contasProteladas, 200.00);

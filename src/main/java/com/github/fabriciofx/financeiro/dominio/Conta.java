@@ -2,18 +2,27 @@ package com.github.fabriciofx.financeiro.dominio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 public class Conta {
 	private List<Lancamento> lancamentos;
-	private Moeda moeda;
+	private Currency moeda;
 
-	public Conta(Moeda moeda) {
+	public Conta() {
+		this("BRL");
+	}
+
+	public Conta(final String isoMoeda) {
+		this(Currency.getInstance(isoMoeda));
+	}
+
+	public Conta(Currency moeda) {
 		this.lancamentos = new ArrayList<>();
 		this.moeda = moeda;
 	}
 
-	public Moeda getMoeda() {
+	public Currency getMoeda() {
 		return moeda;
 	}
 
