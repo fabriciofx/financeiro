@@ -1,5 +1,4 @@
 language: java
-env:
-  - JAVA_OPTIONS="-Duser.language=pt -Duser.country=BR"
+
 jdk:
   - oraclejdk8
