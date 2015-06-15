@@ -13,6 +13,7 @@ out
 *.h2.db
 *.trace.db
 *.lock.db
+*.bak
 target
 classes
 build
