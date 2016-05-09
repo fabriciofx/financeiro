@@ -12,7 +12,7 @@ public class Transacao {
 		// oposto ao outro, para que as somas destes lançamentos sejam iguais
 		// a zero.
 		Lancamento lancamentoDe = new Lancamento(TipoLancamento.TRANSACAO,
-				data, quantia.multiplica(-1));
+				data, quantia.negativa());
 		de.addLancamento(lancamentoDe);
 		lancamentos.add(lancamentoDe);
 
