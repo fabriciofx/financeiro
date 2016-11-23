@@ -52,7 +52,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
+				<version>0.7.7.201606060606</version>
 				<executions>
 					<execution>
 						<id>prepare-agent</id>
@@ -67,7 +67,6 @@
 							<goal>report</goal>
 						</goals>
 					</execution>
-					<!--
 					<execution>
 						<id>check</id>
 						<goals>
@@ -81,27 +80,27 @@
 										<limit>
 											<counter>INSTRUCTION</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum>
+											<minimum>0.95</minimum>
 										</limit>
 										<limit>
 											<counter>LINE</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum>
+											<minimum>0.95</minimum>
 										</limit>
 										<limit>
 											<counter>BRANCH</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum>
+											<minimum>0.95</minimum>
 										</limit>
 										<limit>
 											<counter>COMPLEXITY</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum>
+											<minimum>0.95</minimum>
 										</limit>
 										<limit>
 											<counter>METHOD</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.80</minimum>
+											<minimum>0.95</minimum>
 										</limit>
 										<limit>
 											<counter>CLASS</counter>
@@ -113,7 +112,6 @@
 							</rules>
 						</configuration>
 					</execution>
-					-->
 				</executions>
 			</plugin>
 		</plugins>
