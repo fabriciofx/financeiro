@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.infraestrutura;
+package com.github.fabriciofx.financeiro.temporal;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

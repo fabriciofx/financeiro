@@ -21,23 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.regras;
+package com.github.fabriciofx.financeiro.eventos;
 
-import com.github.fabriciofx.financeiro.dominio.Dinheiro;
-import com.github.fabriciofx.financeiro.dominio.Evento;
-import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
-import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
-import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
+import java.time.LocalDate;
 
-public class RegraMultiplicaPorTaxa extends RegraLancamento {
-    public RegraMultiplicaPorTaxa(TipoLancamento tipo) {
-        super(tipo);
+import com.github.fabriciofx.financeiro.Dinheiro;
+import com.github.fabriciofx.financeiro.Cliente;
+import com.github.fabriciofx.financeiro.Evento;
+import com.github.fabriciofx.financeiro.TipoEvento;
+
+public class EventoMonetario extends Evento {
+    private Dinheiro valor;
+
+    public EventoMonetario(TipoEvento tipo, LocalDate quandoOcorreu,
+            LocalDate quandoObservado, Cliente cliente, Dinheiro valor) {
+        super(tipo, quandoOcorreu, quandoObservado, cliente);
+        this.valor = valor;
     }
 
-    protected Dinheiro calculaValor(Evento evento) {
-        Consumo eventoDeConsumo = (Consumo) evento;
-
-        return new Dinheiro(Double.toString(eventoDeConsumo.getValor()
-                * eventoDeConsumo.getTaxa()));
+    public Dinheiro getValor() {
+        return valor;
     }
 }

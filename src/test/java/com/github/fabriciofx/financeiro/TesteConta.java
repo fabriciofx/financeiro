@@ -21,43 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
-public class Cliente {
-    private String nome;
-    private AcordoServico acordoServico;
-    private List<Lancamento> lancamentos;
+import java.time.LocalDate;
 
-    public Cliente(String nome) {
-        this.lancamentos = new ArrayList<>();
-        this.nome = nome;
-    }
+import org.junit.Test;
 
-    public String getNome() {
-        return nome;
-    }
+public class TesteConta {
+    @Test
+    public void balancoUsandoTransacoes() {
+        Conta receitas = new Conta();
+        Conta contasProteladas = new Conta();
+        Conta contasAReceber = new Conta();
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+        receitas.saque(LocalDate.now(), contasAReceber, new Dinheiro("500.00"));
+        receitas.saque(LocalDate.now(), contasProteladas,
+                new Dinheiro("200.00"));
 
-    public void addLancamento(Lancamento lancamento) {
-        lancamentos.add(lancamento);
-    }
-
-    public List<Lancamento> getLancamentos() {
-        return Collections.unmodifiableList(lancamentos);
-    }
-
-    public AcordoServico getAcordoServico() {
-        return acordoServico;
-    }
-
-    public void setAcordoServico(AcordoServico acordo) {
-        acordoServico = acordo;
+        assertEquals(new Dinheiro("500.00"), contasAReceber.saldo());
+        assertEquals(new Dinheiro("200.00"), contasProteladas.saldo());
+        assertEquals(new Dinheiro("700.00").multiplica(-1), receitas.saldo());
     }
 }

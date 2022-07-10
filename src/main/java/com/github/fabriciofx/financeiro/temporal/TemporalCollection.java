@@ -21,27 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
-
-import static org.junit.Assert.assertEquals;
+package com.github.fabriciofx.financeiro.temporal;
 
 import java.time.LocalDate;
 
-import org.junit.Test;
+public interface TemporalCollection<E> {
+    public E get(LocalDate when);
 
-public class TesteConta {
-    @Test
-    public void balancoUsandoTransacoes() {
-        Conta receitas = new Conta();
-        Conta contasProteladas = new Conta();
-        Conta contasAReceber = new Conta();
+    public void put(LocalDate when, E item);
 
-        receitas.saque(LocalDate.now(), contasAReceber, new Dinheiro("500.00"));
-        receitas.saque(LocalDate.now(), contasProteladas,
-                new Dinheiro("200.00"));
+    public E get();
 
-        assertEquals(new Dinheiro("500.00"), contasAReceber.saldo());
-        assertEquals(new Dinheiro("200.00"), contasProteladas.saldo());
-        assertEquals(new Dinheiro("700.00").multiplica(-1), receitas.saldo());
-    }
+    public void put(E item);
 }

@@ -21,19 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.eventos;
 
-public enum TipoEvento {
-    CONSUMO("Consumo"), CHAMADA("Chamada de Serviço"), IMPOSTO("Imposto");
+import com.github.fabriciofx.financeiro.Dinheiro;
+import com.github.fabriciofx.financeiro.TipoEvento;
+import com.github.fabriciofx.financeiro.Evento;
 
-    private final String nome;
+public class EventoImposto extends EventoMonetario {
+    private Evento base;
 
-    TipoEvento(String nome) {
-        this.nome = nome;
-    }
+    public EventoImposto(Evento base, Dinheiro valorTributavel) {
+        super(TipoEvento.IMPOSTO, base.getQuandoOcorreu(), base
+                .getQuandoObservado(), base.getCliente(), valorTributavel);
+        this.base = base;
 
-    @Override
-    public String toString() {
-        return nome;
+        // Provavel recursao infinita
+        assert (base.getTipoEvento() != getTipoEvento());
     }
 }

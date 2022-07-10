@@ -21,30 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
-import java.time.LocalDate;
+public enum TipoLancamento {
+    CONSUMO_BASICO("Consumo Básico"), SERVICO("Taxa de Serviço"), IMPOSTO(
+            "Imposto"), TRANSACAO("Transação");
 
-public class Lancamento {
-    private final TipoLancamento tipo;
-    private final LocalDate data;
-    private final Dinheiro valor;
+    private final String nome;
 
-    public Lancamento(TipoLancamento tipo, LocalDate data, Dinheiro valor) {
-        this.tipo = tipo;
-        this.data = data;
-        this.valor = valor;
+    TipoLancamento(String nome) {
+        this.nome = nome;
     }
 
-    public Dinheiro getValor() {
-        return valor;
-    }
-
-    public LocalDate getData() {
-        return data;
-    }
-
-    public TipoLancamento getTipo() {
-        return tipo;
+    @Override
+    public String toString() {
+        return nome;
     }
 }

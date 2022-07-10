@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

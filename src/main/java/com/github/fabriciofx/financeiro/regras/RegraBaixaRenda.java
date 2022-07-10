@@ -21,28 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.regras;
+package com.github.fabriciofx.financeiro.regras;
 
-import com.github.fabriciofx.financeiro.dominio.Dinheiro;
-import com.github.fabriciofx.financeiro.dominio.Evento;
-import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
-import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
-import com.github.fabriciofx.financeiro.dominio.eventos.EventoMonetario;
+import com.github.fabriciofx.financeiro.Dinheiro;
+import com.github.fabriciofx.financeiro.KWH;
+import com.github.fabriciofx.financeiro.RegraLancamento;
+import com.github.fabriciofx.financeiro.TipoLancamento;
+import com.github.fabriciofx.financeiro.Evento;
+import com.github.fabriciofx.financeiro.eventos.Consumo;
 
-public class RegraFormulaSimples extends RegraLancamento {
-    private double multiplicador;
-    private Dinheiro valorFixo;
+public class RegraBaixaRenda extends RegraLancamento {
+    private double taxa;
+    private KWH limiteDeConsumo;
 
-    public RegraFormulaSimples(TipoLancamento tipo, double multiplicador,
-            Dinheiro valorFixo) {
+    public RegraBaixaRenda(TipoLancamento tipo, double taxa, KWH limiteDeConsumo) {
         super(tipo);
-        this.multiplicador = multiplicador;
-        this.valorFixo = valorFixo;
+        this.taxa = taxa;
+        this.limiteDeConsumo = limiteDeConsumo;
     }
 
     protected Dinheiro calculaValor(Evento evento) {
-        Dinheiro valorDoEvento = ((EventoMonetario) evento).getValor();
+        Consumo eventoDeConsumo = (Consumo) evento;
+        double consumoAtual = eventoDeConsumo.getValor();
 
-        return valorDoEvento.multiplica(multiplicador).soma(valorFixo);
+        return consumoAtual > limiteDeConsumo.valor() ? new Dinheiro(
+                Double.toString(consumoAtual * eventoDeConsumo.getTaxa()))
+                : new Dinheiro(Double.toString(consumoAtual * this.taxa));
     }
 }

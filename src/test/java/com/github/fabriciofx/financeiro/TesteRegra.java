@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,11 +30,11 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
-import com.github.fabriciofx.financeiro.dominio.eventos.EventoMonetario;
-import com.github.fabriciofx.financeiro.dominio.regras.RegraBaixaRenda;
-import com.github.fabriciofx.financeiro.dominio.regras.RegraFormulaSimples;
-import com.github.fabriciofx.financeiro.dominio.regras.RegraMultiplicaPorTaxa;
+import com.github.fabriciofx.financeiro.eventos.Consumo;
+import com.github.fabriciofx.financeiro.eventos.EventoMonetario;
+import com.github.fabriciofx.financeiro.regras.RegraBaixaRenda;
+import com.github.fabriciofx.financeiro.regras.RegraFormulaSimples;
+import com.github.fabriciofx.financeiro.regras.RegraMultiplicaPorTaxa;
 
 public class TesteRegra {
     private Cliente clienteNormal, clienteBaixaRenda;

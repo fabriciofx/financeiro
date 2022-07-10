@@ -21,21 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.eventos;
+package com.github.fabriciofx.financeiro;
 
-import com.github.fabriciofx.financeiro.dominio.Dinheiro;
-import com.github.fabriciofx.financeiro.dominio.Evento;
-import com.github.fabriciofx.financeiro.dominio.TipoEvento;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-public class EventoImposto extends EventoMonetario {
-    private Evento base;
+public class Transacao {
+    private List<Lancamento> lancamentos = new ArrayList<>();
 
-    public EventoImposto(Evento base, Dinheiro valorTributavel) {
-        super(TipoEvento.IMPOSTO, base.getQuandoOcorreu(), base
-                .getQuandoObservado(), base.getCliente(), valorTributavel);
-        this.base = base;
+    public Transacao(LocalDate data, Conta de, Conta para, Dinheiro quantia) {
+        // A transação é composta de dois lançamentos, cada um de valor
+        // oposto ao outro, para que as somas destes lançamentos sejam iguais
+        // a zero.
+        Lancamento lancamentoDe = new Lancamento(TipoLancamento.TRANSACAO,
+                data, quantia.negativa());
+        de.addLancamento(lancamentoDe);
+        lancamentos.add(lancamentoDe);
 
-        // Provavel recursao infinita
-        assert (base.getTipoEvento() != getTipoEvento());
+        Lancamento lancamentoPara = new Lancamento(TipoLancamento.TRANSACAO,
+                data, quantia);
+        para.addLancamento(lancamentoPara);
+        lancamentos.add(lancamentoPara);
     }
 }

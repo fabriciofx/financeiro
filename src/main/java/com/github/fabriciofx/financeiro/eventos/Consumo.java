@@ -21,43 +21,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro.eventos;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.github.fabriciofx.financeiro.dominio.infraestrutura.SingleTemporalCollection;
-import com.github.fabriciofx.financeiro.dominio.infraestrutura.TemporalCollection;
+import com.github.fabriciofx.financeiro.Cliente;
+import com.github.fabriciofx.financeiro.KWH;
+import com.github.fabriciofx.financeiro.TipoEvento;
+import com.github.fabriciofx.financeiro.Evento;
 
-public class AcordoServico {
-    private double taxa;
-    private Map<TipoEvento, TemporalCollection<RegraLancamento>> regrasLancamento;
+public class Consumo extends Evento {
+    private KWH kwh;
 
-    public AcordoServico() {
-        regrasLancamento = new HashMap<TipoEvento, TemporalCollection<RegraLancamento>>();
+    public Consumo(LocalDate quandoOcorreu, LocalDate quandoObservado,
+                   Cliente cliente, KWH kwh) {
+        super(TipoEvento.CONSUMO, quandoOcorreu, quandoObservado, cliente);
+        this.kwh = kwh;
     }
 
-    public void addRegraLancamento(TipoEvento tipoEvento,
-            RegraLancamento regra, LocalDate vigencia) {
-        if (regrasLancamento.get(tipoEvento) == null) {
-            regrasLancamento.put(tipoEvento,
-                    new SingleTemporalCollection<RegraLancamento>());
-        }
-
-        regrasLancamento.get(tipoEvento).put(vigencia, regra);
-    }
-
-    public RegraLancamento getRegraLancamento(TipoEvento tipoEvento,
-            LocalDate quando) {
-        return regrasLancamento.get(tipoEvento).get(quando);
+    public double getValor() {
+        return kwh.valor();
     }
 
     public double getTaxa() {
-        return taxa;
-    }
-
-    public void setTaxa(double novaTaxa) {
-        taxa = novaTaxa;
+        return getCliente().getAcordoServico().getTaxa();
     }
 }

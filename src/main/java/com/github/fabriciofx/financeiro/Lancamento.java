@@ -21,31 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.regras;
+package com.github.fabriciofx.financeiro;
 
-import com.github.fabriciofx.financeiro.dominio.Dinheiro;
-import com.github.fabriciofx.financeiro.dominio.Evento;
-import com.github.fabriciofx.financeiro.dominio.KWH;
-import com.github.fabriciofx.financeiro.dominio.RegraLancamento;
-import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
-import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
+import java.time.LocalDate;
 
-public class RegraBaixaRenda extends RegraLancamento {
-    private double taxa;
-    private KWH limiteDeConsumo;
+public class Lancamento {
+    private final TipoLancamento tipo;
+    private final LocalDate data;
+    private final Dinheiro valor;
 
-    public RegraBaixaRenda(TipoLancamento tipo, double taxa, KWH limiteDeConsumo) {
-        super(tipo);
-        this.taxa = taxa;
-        this.limiteDeConsumo = limiteDeConsumo;
+    public Lancamento(TipoLancamento tipo, LocalDate data, Dinheiro valor) {
+        this.tipo = tipo;
+        this.data = data;
+        this.valor = valor;
     }
 
-    protected Dinheiro calculaValor(Evento evento) {
-        Consumo eventoDeConsumo = (Consumo) evento;
-        double consumoAtual = eventoDeConsumo.getValor();
+    public Dinheiro getValor() {
+        return valor;
+    }
 
-        return consumoAtual > limiteDeConsumo.valor() ? new Dinheiro(
-                Double.toString(consumoAtual * eventoDeConsumo.getTaxa()))
-                : new Dinheiro(Double.toString(consumoAtual * this.taxa));
+    public LocalDate getData() {
+        return data;
+    }
+
+    public TipoLancamento getTipo() {
+        return tipo;
     }
 }

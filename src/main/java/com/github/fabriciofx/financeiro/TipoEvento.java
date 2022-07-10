@@ -21,15 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
-public enum TipoLancamento {
-    CONSUMO_BASICO("Consumo Básico"), SERVICO("Taxa de Serviço"), IMPOSTO(
-            "Imposto"), TRANSACAO("Transação");
+public enum TipoEvento {
+    CONSUMO("Consumo"), CHAMADA("Chamada de Serviço"), IMPOSTO("Imposto");
 
     private final String nome;
 
-    TipoLancamento(String nome) {
+    TipoEvento(String nome) {
         this.nome = nome;
     }
 

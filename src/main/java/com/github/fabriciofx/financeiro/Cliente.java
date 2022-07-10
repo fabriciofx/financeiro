@@ -21,16 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.infraestrutura;
+package com.github.fabriciofx.financeiro;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public interface TemporalCollection<E> {
-    public E get(LocalDate when);
+public class Cliente {
+    private String nome;
+    private AcordoServico acordoServico;
+    private List<Lancamento> lancamentos;
 
-    public void put(LocalDate when, E item);
+    public Cliente(String nome) {
+        this.lancamentos = new ArrayList<>();
+        this.nome = nome;
+    }
 
-    public E get();
+    public String getNome() {
+        return nome;
+    }
 
-    public void put(E item);
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void addLancamento(Lancamento lancamento) {
+        lancamentos.add(lancamento);
+    }
+
+    public List<Lancamento> getLancamentos() {
+        return Collections.unmodifiableList(lancamentos);
+    }
+
+    public AcordoServico getAcordoServico() {
+        return acordoServico;
+    }
+
+    public void setAcordoServico(AcordoServico acordo) {
+        acordoServico = acordo;
+    }
 }

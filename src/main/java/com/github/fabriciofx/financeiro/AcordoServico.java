@@ -21,27 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Transacao {
-    private List<Lancamento> lancamentos = new ArrayList<>();
+import com.github.fabriciofx.financeiro.temporal.SingleTemporalCollection;
+import com.github.fabriciofx.financeiro.temporal.TemporalCollection;
 
-    public Transacao(LocalDate data, Conta de, Conta para, Dinheiro quantia) {
-        // A transação é composta de dois lançamentos, cada um de valor
-        // oposto ao outro, para que as somas destes lançamentos sejam iguais
-        // a zero.
-        Lancamento lancamentoDe = new Lancamento(TipoLancamento.TRANSACAO,
-                data, quantia.negativa());
-        de.addLancamento(lancamentoDe);
-        lancamentos.add(lancamentoDe);
+public class AcordoServico {
+    private double taxa;
+    private Map<TipoEvento, TemporalCollection<RegraLancamento>> regrasLancamento;
 
-        Lancamento lancamentoPara = new Lancamento(TipoLancamento.TRANSACAO,
-                data, quantia);
-        para.addLancamento(lancamentoPara);
-        lancamentos.add(lancamentoPara);
+    public AcordoServico() {
+        regrasLancamento = new HashMap<TipoEvento, TemporalCollection<RegraLancamento>>();
+    }
+
+    public void addRegraLancamento(TipoEvento tipoEvento,
+            RegraLancamento regra, LocalDate vigencia) {
+        if (regrasLancamento.get(tipoEvento) == null) {
+            regrasLancamento.put(tipoEvento,
+                    new SingleTemporalCollection<RegraLancamento>());
+        }
+
+        regrasLancamento.get(tipoEvento).put(vigencia, regra);
+    }
+
+    public RegraLancamento getRegraLancamento(TipoEvento tipoEvento,
+            LocalDate quando) {
+        return regrasLancamento.get(tipoEvento).get(quando);
+    }
+
+    public double getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(double novaTaxa) {
+        taxa = novaTaxa;
     }
 }

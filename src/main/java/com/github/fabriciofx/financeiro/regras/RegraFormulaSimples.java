@@ -21,29 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio.eventos;
+package com.github.fabriciofx.financeiro.regras;
 
-import java.time.LocalDate;
+import com.github.fabriciofx.financeiro.Dinheiro;
+import com.github.fabriciofx.financeiro.Evento;
+import com.github.fabriciofx.financeiro.RegraLancamento;
+import com.github.fabriciofx.financeiro.TipoLancamento;
+import com.github.fabriciofx.financeiro.eventos.EventoMonetario;
 
-import com.github.fabriciofx.financeiro.dominio.Cliente;
-import com.github.fabriciofx.financeiro.dominio.Evento;
-import com.github.fabriciofx.financeiro.dominio.KWH;
-import com.github.fabriciofx.financeiro.dominio.TipoEvento;
+public class RegraFormulaSimples extends RegraLancamento {
+    private double multiplicador;
+    private Dinheiro valorFixo;
 
-public class Consumo extends Evento {
-    private KWH kwh;
-
-    public Consumo(LocalDate quandoOcorreu, LocalDate quandoObservado,
-            Cliente cliente, KWH kwh) {
-        super(TipoEvento.CONSUMO, quandoOcorreu, quandoObservado, cliente);
-        this.kwh = kwh;
+    public RegraFormulaSimples(TipoLancamento tipo, double multiplicador,
+                               Dinheiro valorFixo) {
+        super(tipo);
+        this.multiplicador = multiplicador;
+        this.valorFixo = valorFixo;
     }
 
-    public double getValor() {
-        return kwh.valor();
-    }
+    protected Dinheiro calculaValor(Evento evento) {
+        Dinheiro valorDoEvento = ((EventoMonetario) evento).getValor();
 
-    public double getTaxa() {
-        return getCliente().getAcordoServico().getTaxa();
+        return valorDoEvento.multiplica(multiplicador).soma(valorFixo);
     }
 }

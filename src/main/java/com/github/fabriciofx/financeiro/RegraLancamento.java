@@ -21,16 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.fabriciofx.financeiro.dominio;
+package com.github.fabriciofx.financeiro;
 
-public final class KWH {
-    private final int valor;
+import com.github.fabriciofx.financeiro.eventos.EventoImposto;
 
-    public KWH(final int valor) {
-        this.valor = valor;
+public abstract class RegraLancamento {
+    protected TipoLancamento tipo;
+
+    protected RegraLancamento(TipoLancamento tipo) {
+        this.tipo = tipo;
     }
 
-    public int valor() {
-        return valor;
+    private void facaLancamento(Evento evento, Dinheiro valor) {
+        Lancamento novoLancamento = new Lancamento(tipo,
+                evento.getQuandoObservado(), valor);
+        evento.getCliente().addLancamento(novoLancamento);
+        evento.addLancamentoResultante(novoLancamento);
     }
+
+    private boolean isTributavel() {
+        return tipo != TipoLancamento.IMPOSTO;
+    }
+
+    public void processa(Evento evento) {
+        facaLancamento(evento, calculaValor(evento));
+
+        if (isTributavel()) {
+            EventoImposto ei = new EventoImposto(evento, calculaValor(evento));
+            ei.processa();
+        }
+    }
+
+    protected abstract Dinheiro calculaValor(Evento evento);
 }
