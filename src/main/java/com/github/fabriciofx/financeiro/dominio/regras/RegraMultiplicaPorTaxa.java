@@ -30,14 +30,14 @@ import com.github.fabriciofx.financeiro.dominio.TipoLancamento;
 import com.github.fabriciofx.financeiro.dominio.eventos.Consumo;
 
 public class RegraMultiplicaPorTaxa extends RegraLancamento {
-	public RegraMultiplicaPorTaxa(TipoLancamento tipo) {
-		super(tipo);
-	}
+    public RegraMultiplicaPorTaxa(TipoLancamento tipo) {
+        super(tipo);
+    }
 
-	protected Dinheiro calculaValor(Evento evento) {
-		Consumo eventoDeConsumo = (Consumo) evento;
+    protected Dinheiro calculaValor(Evento evento) {
+        Consumo eventoDeConsumo = (Consumo) evento;
 
-		return new Dinheiro(Double.toString(eventoDeConsumo.getValor()
-				* eventoDeConsumo.getTaxa()));
-	}
+        return new Dinheiro(Double.toString(eventoDeConsumo.getValor()
+                * eventoDeConsumo.getTaxa()));
+    }
 }

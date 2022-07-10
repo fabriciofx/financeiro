@@ -31,59 +31,59 @@ import java.util.List;
 import java.util.Map;
 
 public class SingleTemporalCollection<E> implements TemporalCollection<E> {
-	private Map<LocalDate, E> contents = new HashMap<LocalDate, E>();
-	private List<LocalDate> milestoneCache;
+    private Map<LocalDate, E> contents = new HashMap<LocalDate, E>();
+    private List<LocalDate> milestoneCache;
 
-	@Override
-	public E get(LocalDate when) {
-		for (LocalDate thisDate : milestones()) {
-			if (thisDate.isBefore(when) || thisDate.equals(when))
-				return contents.get(thisDate);
-		}
+    @Override
+    public E get(LocalDate when) {
+        for (LocalDate thisDate : milestones()) {
+            if (thisDate.isBefore(when) || thisDate.equals(when))
+                return contents.get(thisDate);
+        }
 
-		throw new IllegalArgumentException("no records that early");
-	}
+        throw new IllegalArgumentException("no records that early");
+    }
 
-	@Override
-	public void put(LocalDate at, E item) {
-		contents.put(at, item);
-		clearMilestoneCache();
-	}
+    @Override
+    public void put(LocalDate at, E item) {
+        contents.put(at, item);
+        clearMilestoneCache();
+    }
 
-	/**
-	 * a list of all the dates where the value changed, return in order latest
-	 * first.
-	 */
-	private List<LocalDate> milestones() {
-		if (milestoneCache == null)
-			calculateMilestones();
-		return milestoneCache;
-	}
+    /**
+     * a list of all the dates where the value changed, return in order latest
+     * first.
+     */
+    private List<LocalDate> milestones() {
+        if (milestoneCache == null)
+            calculateMilestones();
+        return milestoneCache;
+    }
 
-	private void calculateMilestones() {
-		milestoneCache = new ArrayList<LocalDate>(contents.size());
-		milestoneCache.addAll(contents.keySet());
-		Collections.sort(milestoneCache, Collections.reverseOrder());
-	}
+    private void calculateMilestones() {
+        milestoneCache = new ArrayList<LocalDate>(contents.size());
+        milestoneCache.addAll(contents.keySet());
+        Collections.sort(milestoneCache, Collections.reverseOrder());
+    }
 
-	private void clearMilestoneCache() {
-		milestoneCache = null;
-	}
+    private void clearMilestoneCache() {
+        milestoneCache = null;
+    }
 
-	@Override
-	public E get() {
-		return get(LocalDate.now());
-	}
+    @Override
+    public E get() {
+        return get(LocalDate.now());
+    }
 
-	@Override
-	public void put(E item) {
-		put(LocalDate.now(), item);
-	}
+    @Override
+    public void put(E item) {
+        put(LocalDate.now(), item);
+    }
 
-	public SingleTemporalCollection<E> copy() {
-		SingleTemporalCollection<E> result = new SingleTemporalCollection<E>();
-		result.contents.putAll(this.contents);
-		
-		return result;
-	}
+    public SingleTemporalCollection<E> copy() {
+        SingleTemporalCollection<E> result = new SingleTemporalCollection<E>();
+        result.contents.putAll(this.contents);
+
+        return result;
+    }
 }
