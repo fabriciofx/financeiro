@@ -34,9 +34,9 @@ public abstract class RegraLancamento {
 
     private void facaLancamento(Evento evento, Dinheiro valor) {
         Lancamento novoLancamento = new Lancamento(tipo,
-                evento.getQuandoObservado(), valor);
-        evento.getCliente().addLancamento(novoLancamento);
-        evento.addLancamentoResultante(novoLancamento);
+                evento.observado(), valor);
+        evento.cliente().addLancamento(novoLancamento);
+        evento.faz(novoLancamento);
     }
 
     private boolean isTributavel() {

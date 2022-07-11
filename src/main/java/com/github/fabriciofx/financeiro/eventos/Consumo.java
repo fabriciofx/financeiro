@@ -44,6 +44,6 @@ public class Consumo extends Evento {
     }
 
     public double getTaxa() {
-        return getCliente().getAcordoServico().getTaxa();
+        return cliente().getAcordoServico().getTaxa();
     }
 }

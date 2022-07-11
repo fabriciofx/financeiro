@@ -31,11 +31,10 @@ public class EventoImposto extends EventoMonetario {
     private Evento base;
 
     public EventoImposto(Evento base, Dinheiro valorTributavel) {
-        super(TipoEvento.IMPOSTO, base.getQuandoOcorreu(), base
-                .getQuandoObservado(), base.getCliente(), valorTributavel);
+        super(TipoEvento.IMPOSTO, base.ocorrido(), base.observado(),
+                base.cliente(), valorTributavel);
         this.base = base;
-
         // Provavel recursao infinita
-        assert (base.getTipoEvento() != getTipoEvento());
+        assert (base.tipoEvento() != tipoEvento());
     }
 }

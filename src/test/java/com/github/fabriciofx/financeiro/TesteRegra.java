@@ -101,7 +101,7 @@ public class TesteRegra {
                 2015, 10, 25), clienteNormal, new KWH(50));
         evento.processa();
         Lancamento lancamentoResultante = evento
-                .getLancamento(clienteNormal, 0);
+                .lancamento(clienteNormal, 0);
 
         assertEquals(new Dinheiro("500.00"), lancamentoResultante.getValor());
     }
