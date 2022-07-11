@@ -74,7 +74,7 @@ public class EventoEnvelope implements Evento {
 
     @Override
     public void processa() {
-        RegraLancamento regra = this.cliente.getAcordoServico()
+        RegraLancamento regra = this.cliente.acordo()
                 .getRegraLancamento(this.tipoEvento(), this.ocorrido);
         if (regra == null) {
             throw new RuntimeException("regra não encontrada!");

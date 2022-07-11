@@ -23,69 +23,51 @@
  */
 package com.github.fabriciofx.financeiro;
 
-import static org.junit.Assert.assertEquals;
-
-import java.time.LocalDate;
-
-import org.junit.Before;
-import org.junit.Test;
-
 import com.github.fabriciofx.financeiro.eventos.Consumo;
 import com.github.fabriciofx.financeiro.eventos.EventoMonetario;
 import com.github.fabriciofx.financeiro.regras.RegraBaixaRenda;
 import com.github.fabriciofx.financeiro.regras.RegraFormulaSimples;
 import com.github.fabriciofx.financeiro.regras.RegraMultiplicaPorTaxa;
+import org.junit.Before;
+import org.junit.Test;
+import java.time.LocalDate;
+import static org.junit.Assert.assertEquals;
 
 public class TesteRegra {
     private Cliente clienteNormal, clienteBaixaRenda;
 
     private Cliente criaClienteNormal() {
-        Cliente clienteNormal = new Cliente("Cafe A Margot");
-
-        AcordoServico padrao = new AcordoServico();
-        padrao.setTaxa(10);
-
+        AcordoServico padrao = new AcordoServico(10);
         padrao.addRegraLancamento(TipoEvento.CONSUMO,
                 new RegraMultiplicaPorTaxa(TipoLancamento.CONSUMO_BASICO),
                 LocalDate.of(2015, 1, 1));
-
         padrao.addRegraLancamento(TipoEvento.CHAMADA, new RegraFormulaSimples(
                 TipoLancamento.SERVICO, 0.5, new Dinheiro("10.00")), LocalDate
                 .of(2015, 1, 1));
-
         padrao.addRegraLancamento(TipoEvento.CHAMADA, new RegraFormulaSimples(
                 TipoLancamento.SERVICO, 0.5, new Dinheiro("15.00")), LocalDate
                 .of(2015, 10, 1));
-
         padrao.addRegraLancamento(TipoEvento.IMPOSTO, new RegraFormulaSimples(
                 TipoLancamento.IMPOSTO, 0.055, Dinheiro.ZERO_REAL), LocalDate
                 .of(2015, 1, 1));
-
-        clienteNormal.setAcordoServico(padrao);
-
+        Cliente clienteNormal = new Cliente("Cafe A Margot", padrao);
         return clienteNormal;
     }
 
     private Cliente criaClienteBaixaRenda() {
-        Cliente clienteBaixaRenda = new Cliente("José Severino da Silva");
-
-        AcordoServico baixaRenda = new AcordoServico();
-        baixaRenda.setTaxa(10);
-
+        AcordoServico baixaRenda = new AcordoServico(10);
         baixaRenda.addRegraLancamento(TipoEvento.CONSUMO, new RegraBaixaRenda(
                 TipoLancamento.CONSUMO_BASICO, 5, new KWH(50)), LocalDate.of(
                 2015, 1, 1));
-
         baixaRenda.addRegraLancamento(TipoEvento.CHAMADA,
                 new RegraFormulaSimples(TipoLancamento.SERVICO, 0,
                         new Dinheiro("10.00")), LocalDate.of(2015, 10, 1));
-
         baixaRenda.addRegraLancamento(TipoEvento.IMPOSTO,
-                new RegraFormulaSimples(TipoLancamento.IMPOSTO, 0.055, Dinheiro.ZERO_REAL),
+                new RegraFormulaSimples(TipoLancamento.IMPOSTO, 0.055,
+                        Dinheiro.ZERO_REAL),
                 LocalDate.of(2015, 1, 1));
-
-        clienteBaixaRenda.setAcordoServico(baixaRenda);
-
+        Cliente clienteBaixaRenda = new Cliente("José Severino da Silva",
+                baixaRenda);
         return clienteBaixaRenda;
     }
 
@@ -97,13 +79,15 @@ public class TesteRegra {
 
     @Test
     public void consumo() {
-        Consumo evento = new Consumo(LocalDate.of(2015, 10, 25), LocalDate.of(
-                2015, 10, 25), clienteNormal, new KWH(50));
+        Consumo evento = new Consumo(
+                LocalDate.of(2015, 10, 25),
+                LocalDate.of(2015, 10, 25),
+                clienteNormal,
+                new KWH(50)
+        );
         evento.processa();
-        Lancamento lancamentoResultante = evento
-                .lancamento(clienteNormal, 0);
-
-        assertEquals(new Dinheiro("500.00"), lancamentoResultante.getValor());
+        Lancamento lancamentoResultante = evento.lancamento(clienteNormal, 0);
+        assertEquals(new Dinheiro("500.00"), lancamentoResultante.valor());
     }
 
     @Test
@@ -112,9 +96,8 @@ public class TesteRegra {
                 2015, 5, 25), LocalDate.of(2015, 5, 25), clienteNormal,
                 new Dinheiro("40.00"));
         evento.processa();
-        Lancamento lancamentoResultante = clienteNormal.getLancamentos().get(0);
-
-        assertEquals(new Dinheiro("30.00"), lancamentoResultante.getValor());
+        Lancamento lancamentoResultante = clienteNormal.lancamentos().get(0);
+        assertEquals(new Dinheiro("30.00"), lancamentoResultante.valor());
     }
 
     @Test
@@ -123,9 +106,8 @@ public class TesteRegra {
                 2015, 10, 5), LocalDate.of(2015, 10, 15), clienteNormal,
                 new Dinheiro("40.00"));
         evento.processa();
-        Lancamento lancamentoResultante = clienteNormal.getLancamentos().get(0);
-
-        assertEquals(new Dinheiro("35.00"), lancamentoResultante.getValor());
+        Lancamento lancamentoResultante = clienteNormal.lancamentos().get(0);
+        assertEquals(new Dinheiro("35.00"), lancamentoResultante.valor());
     }
 
     @Test
@@ -133,20 +115,16 @@ public class TesteRegra {
         Consumo evento = new Consumo(LocalDate.of(2015, 10, 1), LocalDate.of(
                 2015, 10, 1), clienteBaixaRenda, new KWH(50));
         evento.processa();
-
         Consumo evento2 = new Consumo(LocalDate.of(2015, 10, 2), LocalDate.of(
                 2015, 10, 2), clienteBaixaRenda, new KWH(51));
         evento2.processa();
-
-        Lancamento lancamentoResultante1 = clienteBaixaRenda.getLancamentos()
+        Lancamento lancamentoResultante1 = clienteBaixaRenda.lancamentos()
                 .get(0);
-        Lancamento lancamentoResultante2 = clienteBaixaRenda.getLancamentos()
+        Lancamento lancamentoResultante2 = clienteBaixaRenda.lancamentos()
                 .get(1);
-
-        assertEquals(new Dinheiro("250.00"), lancamentoResultante1.getValor());
-        assertEquals(new Dinheiro("13.75"), lancamentoResultante2.getValor());
+        assertEquals(new Dinheiro("250.00"), lancamentoResultante1.valor());
+        assertEquals(new Dinheiro("13.75"), lancamentoResultante2.valor());
     }
-
     // @Test
     // public void consumoComImposto() {
     // Consumo evento = new Consumo(LocalDate.now(), LocalDate.now(),

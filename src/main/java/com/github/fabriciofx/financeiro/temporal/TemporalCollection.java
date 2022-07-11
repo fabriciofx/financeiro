@@ -26,11 +26,11 @@ package com.github.fabriciofx.financeiro.temporal;
 import java.time.LocalDate;
 
 public interface TemporalCollection<E> {
-    public E get(LocalDate when);
+    E get(LocalDate when);
 
-    public void put(LocalDate when, E item);
+    void put(LocalDate when, E item);
 
-    public E get();
+    E get();
 
-    public void put(E item);
+    void put(E item);
 }

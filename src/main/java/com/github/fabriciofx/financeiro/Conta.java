@@ -61,8 +61,8 @@ public class Conta {
         Dinheiro resultado = Dinheiro.ZERO_REAL;
 
         for (Lancamento lancamento : lancamentos) {
-            if (periodo.contem(lancamento.getData())) {
-                resultado = resultado.soma(lancamento.getValor());
+            if (periodo.contem(lancamento.data())) {
+                resultado = resultado.soma(lancamento.valor());
             }
         }
 
@@ -73,7 +73,7 @@ public class Conta {
         Dinheiro resultado = Dinheiro.ZERO_REAL;
 
         for (Lancamento lancamento : lancamentos) {
-            resultado = resultado.soma(lancamento.getValor());
+            resultado = resultado.soma(lancamento.valor());
         }
 
         return resultado;
@@ -84,9 +84,9 @@ public class Conta {
 
         for (Lancamento lancamento : lancamentos) {
             // veririca também se o lancamento possui um valor positivo
-            if (periodo.contem(lancamento.getData())
-                    && lancamento.getValor().compareTo(Dinheiro.ZERO_REAL) > 0) {
-                resultado = resultado.soma(lancamento.getValor());
+            if (periodo.contem(lancamento.data())
+                    && lancamento.valor().compareTo(Dinheiro.ZERO_REAL) > 0) {
+                resultado = resultado.soma(lancamento.valor());
             }
         }
 
@@ -98,9 +98,9 @@ public class Conta {
 
         for (Lancamento lancamento : lancamentos) {
             // veririca também se o lancamento possui um valor negativo
-            if (periodo.contem(lancamento.getData())
-                    && lancamento.getValor().compareTo(Dinheiro.ZERO_REAL) < 0) {
-                resultado = resultado.soma(lancamento.getValor());
+            if (periodo.contem(lancamento.data())
+                    && lancamento.valor().compareTo(Dinheiro.ZERO_REAL) < 0) {
+                resultado = resultado.soma(lancamento.valor());
             }
         }
 

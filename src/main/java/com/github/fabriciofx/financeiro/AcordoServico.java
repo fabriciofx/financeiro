@@ -23,41 +23,35 @@
  */
 package com.github.fabriciofx.financeiro;
 
+import com.github.fabriciofx.financeiro.temporal.SingleTemporalCollection;
+import com.github.fabriciofx.financeiro.temporal.TemporalCollection;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.github.fabriciofx.financeiro.temporal.SingleTemporalCollection;
-import com.github.fabriciofx.financeiro.temporal.TemporalCollection;
 
 public class AcordoServico {
     private double taxa;
     private Map<TipoEvento, TemporalCollection<RegraLancamento>> regrasLancamento;
 
-    public AcordoServico() {
-        regrasLancamento = new HashMap<TipoEvento, TemporalCollection<RegraLancamento>>();
+    public AcordoServico(double taxa) {
+        this.taxa = taxa;
+        this.regrasLancamento = new HashMap<>();
     }
 
     public void addRegraLancamento(TipoEvento tipoEvento,
             RegraLancamento regra, LocalDate vigencia) {
-        if (regrasLancamento.get(tipoEvento) == null) {
-            regrasLancamento.put(tipoEvento,
-                    new SingleTemporalCollection<RegraLancamento>());
+        if (this.regrasLancamento.get(tipoEvento) == null) {
+            this.regrasLancamento.put(tipoEvento, new SingleTemporalCollection<>());
         }
-
-        regrasLancamento.get(tipoEvento).put(vigencia, regra);
+        this.regrasLancamento.get(tipoEvento).put(vigencia, regra);
     }
 
     public RegraLancamento getRegraLancamento(TipoEvento tipoEvento,
             LocalDate quando) {
-        return regrasLancamento.get(tipoEvento).get(quando);
+        return this.regrasLancamento.get(tipoEvento).get(quando);
     }
 
-    public double getTaxa() {
-        return taxa;
-    }
-
-    public void setTaxa(double novaTaxa) {
-        taxa = novaTaxa;
+    public double taxa() {
+        return this.taxa;
     }
 }

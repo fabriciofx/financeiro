@@ -35,10 +35,10 @@ public class RegraMultiplicaPorTaxa extends RegraLancamento {
     }
 
     @Override
-    protected Dinheiro calculaValor(Evento evento) {
+    protected Dinheiro valor(Evento evento) {
         Consumo eventoDeConsumo = (Consumo) evento;
 
-        return new Dinheiro(Double.toString(eventoDeConsumo.getValor()
-                * eventoDeConsumo.getTaxa()));
+        return new Dinheiro(Double.toString(eventoDeConsumo.valor()
+                * eventoDeConsumo.taxa()));
     }
 }

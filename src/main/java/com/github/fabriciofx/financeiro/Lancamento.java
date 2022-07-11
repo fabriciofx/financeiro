@@ -36,15 +36,15 @@ public class Lancamento {
         this.valor = valor;
     }
 
-    public Dinheiro getValor() {
-        return valor;
+    public TipoLancamento tipo() {
+        return tipo;
     }
 
-    public LocalDate getData() {
+    public LocalDate data() {
         return data;
     }
 
-    public TipoLancamento getTipo() {
-        return tipo;
+    public Dinheiro valor() {
+        return valor;
     }
 }

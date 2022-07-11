@@ -42,8 +42,8 @@ public class RegraFormulaSimples extends RegraLancamento {
     }
 
     @Override
-    protected Dinheiro calculaValor(Evento evento) {
-        Dinheiro valorDoEvento = ((EventoMonetario) evento).getValor();
+    protected Dinheiro valor(Evento evento) {
+        Dinheiro valorDoEvento = ((EventoMonetario) evento).valor();
         return valorDoEvento.multiplica(multiplicador).soma(valorFixo);
     }
 }

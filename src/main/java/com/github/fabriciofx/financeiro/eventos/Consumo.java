@@ -40,11 +40,11 @@ public class Consumo extends EventoEnvelope {
         this.kwh = kwh;
     }
 
-    public double getValor() {
+    public double valor() {
         return kwh.valor();
     }
 
-    public double getTaxa() {
-        return cliente().getAcordoServico().getTaxa();
+    public double taxa() {
+        return cliente().acordo().taxa();
     }
 }

@@ -29,35 +29,28 @@ import java.util.List;
 
 public class Cliente {
     private String nome;
-    private AcordoServico acordoServico;
+    private AcordoServico acordo;
     private List<Lancamento> lancamentos;
 
-    public Cliente(String nome) {
+    public Cliente(String nome, AcordoServico acordo) {
         this.lancamentos = new ArrayList<>();
         this.nome = nome;
+        this.acordo = acordo;
     }
 
-    public String getNome() {
-        return nome;
+    public String nome() {
+        return this.nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void faz(Lancamento lancamento) {
+        this.lancamentos.add(lancamento);
     }
 
-    public void addLancamento(Lancamento lancamento) {
-        lancamentos.add(lancamento);
+    public List<Lancamento> lancamentos() {
+        return Collections.unmodifiableList(this.lancamentos);
     }
 
-    public List<Lancamento> getLancamentos() {
-        return Collections.unmodifiableList(lancamentos);
-    }
-
-    public AcordoServico getAcordoServico() {
-        return acordoServico;
-    }
-
-    public void setAcordoServico(AcordoServico acordo) {
-        acordoServico = acordo;
+    public AcordoServico acordo() {
+        return this.acordo;
     }
 }

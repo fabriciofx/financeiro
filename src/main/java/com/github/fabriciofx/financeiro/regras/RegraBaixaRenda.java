@@ -41,12 +41,12 @@ public class RegraBaixaRenda extends RegraLancamento {
     }
 
     @Override
-    protected Dinheiro calculaValor(Evento evento) {
+    protected Dinheiro valor(Evento evento) {
         Consumo eventoDeConsumo = (Consumo) evento;
-        double consumoAtual = eventoDeConsumo.getValor();
+        double consumoAtual = eventoDeConsumo.valor();
 
         return consumoAtual > limiteDeConsumo.valor() ? new Dinheiro(
-                Double.toString(consumoAtual * eventoDeConsumo.getTaxa()))
+                Double.toString(consumoAtual * eventoDeConsumo.taxa()))
                 : new Dinheiro(Double.toString(consumoAtual * this.taxa));
     }
 }

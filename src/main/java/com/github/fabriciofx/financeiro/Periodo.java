@@ -42,11 +42,11 @@ public class Periodo {
     }
 
     public LocalDate getInicio() {
-        return inicio;
+        return this.inicio;
     }
 
     public LocalDate getTermino() {
-        return termino;
+        return this.termino;
     }
 
     public static Periodo de(final String dataInicio) {
@@ -58,20 +58,19 @@ public class Periodo {
     public Periodo ate(final String dataTermino) {
         this.termino = LocalDate.parse(dataTermino,
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
         return this;
     }
 
     public long emHoras() {
-        return ChronoUnit.HOURS.between(inicio, termino);
+        return ChronoUnit.HOURS.between(this.inicio, this.termino);
     }
 
     @Override
     public String toString() {
         final DateTimeFormatter formato = DateTimeFormatter
                 .ofPattern("dd/MM/yyyy");
-
-        return inicio.format(formato) + " a " + termino.format(formato);
+        return this.inicio.format(formato) + " a " + this.termino.format(
+                formato);
     }
 
     public boolean contem(LocalDate data) {

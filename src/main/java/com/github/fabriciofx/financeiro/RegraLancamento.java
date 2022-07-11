@@ -35,7 +35,7 @@ public abstract class RegraLancamento {
     private void facaLancamento(Evento evento, Dinheiro valor) {
         Lancamento novoLancamento = new Lancamento(tipo,
                 evento.observado(), valor);
-        evento.cliente().addLancamento(novoLancamento);
+        evento.cliente().faz(novoLancamento);
         evento.faz(novoLancamento);
     }
 
@@ -44,13 +44,13 @@ public abstract class RegraLancamento {
     }
 
     public void processa(Evento evento) {
-        facaLancamento(evento, calculaValor(evento));
+        facaLancamento(evento, valor(evento));
 
         if (isTributavel()) {
-            EventoImposto ei = new EventoImposto(evento, calculaValor(evento));
+            EventoImposto ei = new EventoImposto(evento, valor(evento));
             ei.processa();
         }
     }
 
-    protected abstract Dinheiro calculaValor(Evento evento);
+    protected abstract Dinheiro valor(Evento evento);
 }

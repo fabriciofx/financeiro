@@ -39,7 +39,7 @@ public class EventoMonetario extends EventoEnvelope {
         this.valor = valor;
     }
 
-    public Dinheiro getValor() {
-        return valor;
+    public Dinheiro valor() {
+        return this.valor;
     }
 }
