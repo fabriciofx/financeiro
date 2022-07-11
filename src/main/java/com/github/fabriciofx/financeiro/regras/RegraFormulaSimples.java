@@ -33,16 +33,17 @@ public class RegraFormulaSimples extends RegraLancamento {
     private double multiplicador;
     private Dinheiro valorFixo;
 
-    public RegraFormulaSimples(TipoLancamento tipo, double multiplicador,
-                               Dinheiro valorFixo) {
+    public RegraFormulaSimples(
+            TipoLancamento tipo, double multiplicador,
+            Dinheiro valorFixo) {
         super(tipo);
         this.multiplicador = multiplicador;
         this.valorFixo = valorFixo;
     }
 
+    @Override
     protected Dinheiro calculaValor(Evento evento) {
         Dinheiro valorDoEvento = ((EventoMonetario) evento).getValor();
-
         return valorDoEvento.multiplica(multiplicador).soma(valorFixo);
     }
 }

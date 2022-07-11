@@ -24,73 +24,47 @@
 package com.github.fabriciofx.financeiro;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Evento {
-    private TipoEvento tipo;
-    private LocalDate ocorrido;
-    private LocalDate observado;
-    private Cliente cliente;
-    private List<Lancamento> lancamentos = new ArrayList<>();
-    private List<Evento> secundarios = new ArrayList<>();
+public interface Evento {
+    /**
+     * O tipo de evento que ocorreu.
+     * @return O tipo de evento
+     */
+    TipoEvento tipoEvento();
 
-    public Evento(
-        TipoEvento tipo,
-        LocalDate ocorrido,
-        LocalDate observado,
-        Cliente cliente
-    ) {
-        this.tipo = tipo;
-        this.ocorrido = ocorrido;
-        this.observado = observado;
-        this.cliente = cliente;
-    }
+    /**
+     * Quando o evento ocorreu.
+     * @return A data quando o evento ocorreu
+     */
+    LocalDate ocorrido();
 
-    public TipoEvento tipoEvento() {
-        return this.tipo;
-    }
+    /**
+     * Quando o evento foi observado.
+     * @return A data quando o evento foi observado
+     */
+    LocalDate observado();
 
-    public LocalDate ocorrido() {
-        return this.ocorrido;
-    }
+    /**
+     * O cliente que fez aquele evento.
+     * @return O cliente que fez o evento
+     */
+    Cliente cliente();
 
-    public LocalDate observado() {
-        return this.observado;
-    }
+    /**
+     * Faz um lançcamento em um evento.
+     * @param lancamento Um lançamento
+     */
+    void faz(Lancamento lancamento);
 
-    public Cliente cliente() {
-        return this.cliente;
-    }
+    /**
+     * Processa um evento de acordo com os lançamentos.
+     */
+    void processa();
 
-    public void faz(Lancamento lancamento) {
-        this.lancamentos.add(lancamento);
-    }
-
-    public Lancamento lancamento(Cliente cliente, int index) {
-        return this.lancamentos.get(index);
-    }
-
-    public void processa() {
-        RegraLancamento regra = this.cliente.getAcordoServico()
-                .getRegraLancamento(this.tipoEvento(), this.ocorrido);
-        if (regra == null) {
-            throw new RuntimeException("regra não encontrada!");
-        }
-        regra.processa(this);
-    }
-
-    public void addEventoSecundario(Evento evento) {
-        // so deve ser chamado pelo metodo set do evento secundario
-        this.secundarios.add(evento);
-    }
-
-    public List<Lancamento> getTodosLancamentosResultantes() {
-        List<Lancamento> resultado = new ArrayList<>();
-        resultado.addAll(this.lancamentos);
-        for (Evento evento : this.secundarios) {
-            resultado.addAll(evento.getTodosLancamentosResultantes());
-        }
-        return resultado;
-    }
+    /**
+     * Retorna todos os lançamentos.
+     * @return Todos os lançcamentos
+     */
+    List<Lancamento> lancamentos();
 }

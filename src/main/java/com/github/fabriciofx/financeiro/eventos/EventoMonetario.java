@@ -23,14 +23,14 @@
  */
 package com.github.fabriciofx.financeiro.eventos;
 
-import java.time.LocalDate;
-
-import com.github.fabriciofx.financeiro.Dinheiro;
 import com.github.fabriciofx.financeiro.Cliente;
-import com.github.fabriciofx.financeiro.Evento;
+import com.github.fabriciofx.financeiro.Dinheiro;
+import com.github.fabriciofx.financeiro.EventoEnvelope;
 import com.github.fabriciofx.financeiro.TipoEvento;
 
-public class EventoMonetario extends Evento {
+import java.time.LocalDate;
+
+public class EventoMonetario extends EventoEnvelope {
     private Dinheiro valor;
 
     public EventoMonetario(TipoEvento tipo, LocalDate quandoOcorreu,

@@ -23,18 +23,19 @@
  */
 package com.github.fabriciofx.financeiro.eventos;
 
-import java.time.LocalDate;
-
 import com.github.fabriciofx.financeiro.Cliente;
+import com.github.fabriciofx.financeiro.EventoEnvelope;
 import com.github.fabriciofx.financeiro.KWH;
 import com.github.fabriciofx.financeiro.TipoEvento;
-import com.github.fabriciofx.financeiro.Evento;
 
-public class Consumo extends Evento {
+import java.time.LocalDate;
+
+public class Consumo extends EventoEnvelope {
     private KWH kwh;
 
-    public Consumo(LocalDate quandoOcorreu, LocalDate quandoObservado,
-                   Cliente cliente, KWH kwh) {
+    public Consumo(
+            LocalDate quandoOcorreu, LocalDate quandoObservado,
+            Cliente cliente, KWH kwh) {
         super(TipoEvento.CONSUMO, quandoOcorreu, quandoObservado, cliente);
         this.kwh = kwh;
     }

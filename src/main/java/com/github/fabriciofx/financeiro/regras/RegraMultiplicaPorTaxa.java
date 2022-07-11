@@ -24,9 +24,9 @@
 package com.github.fabriciofx.financeiro.regras;
 
 import com.github.fabriciofx.financeiro.Dinheiro;
+import com.github.fabriciofx.financeiro.Evento;
 import com.github.fabriciofx.financeiro.RegraLancamento;
 import com.github.fabriciofx.financeiro.TipoLancamento;
-import com.github.fabriciofx.financeiro.Evento;
 import com.github.fabriciofx.financeiro.eventos.Consumo;
 
 public class RegraMultiplicaPorTaxa extends RegraLancamento {
@@ -34,6 +34,7 @@ public class RegraMultiplicaPorTaxa extends RegraLancamento {
         super(tipo);
     }
 
+    @Override
     protected Dinheiro calculaValor(Evento evento) {
         Consumo eventoDeConsumo = (Consumo) evento;
 
